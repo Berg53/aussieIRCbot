@@ -12,7 +12,7 @@ WEATHER_TEXT = (
 FIELDS = {'rain_trace', 'degree', 'temp_f', 'rel_hum', 'local_date_time',
         'press', 'wind_dir', 'air_temp', 'name', 'gust_kmh', 'wind_spd_kt'}
 USER_LOOKUP = {
-    "berg": 'IDN60801/IDN60801.94785.json',
+    "Berg": 'IDN60801/IDN60801.94785.json',
     "bluemaxima": 'IDN60801/IDN60801.94733.json',
     "dodobrain": 'IDQ60901/IDQ60901.94575.json',
     "thearm": 'IDN60801/IDN60801.94592.json',
@@ -23,8 +23,9 @@ USER_LOOKUP = {
     "duoi": 'IDN60801/IDN60801.95704.json',
     "mwsb": 'IDN60801/IDN60801.94926.json',
     "dudz": 'IDN60801/IDN60801.95757.json',
-    "chris":'IDN60901/IDN60901.94768.json', 
-    "mcspud":'IDV60801/IDV60801.95864.json',
+    "chris": 'IDN60901/IDN60901.94768.json', 
+    #"mcspud": 'IDV60801/IDV60801.95864.json',
+    "mcspud": 'IDN60801/IDN60801.95757.json',
 }
 
 
@@ -45,7 +46,7 @@ def _calculate_temp_in_c(temp):
 
 
 def weather(user):
-    user = user.lower()
+    #user = user.lower()
     if user == "stiv":
         return _stiv_bullshit()
     url = ROOT_URL + USER_LOOKUP.get(user)

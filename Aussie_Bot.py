@@ -1,5 +1,5 @@
 #!/usr/local/bin/python
-
+import re
 import socket
 import ssl
 import time
@@ -7,6 +7,7 @@ import weatherdefine
 import timelookup
 import sys
 import BotDefines
+import webtitle
 ## Settings
 ### IRC
 server = "chat.freenode.net"
@@ -59,7 +60,13 @@ while True:
             print (city)
             irc.send("PRIVMSG "+ channel +" :" + timelookup.get_localized_time(city) + '\r\n')
 
-
+        urltext = re.search("(?P<url>https?://[^\s]+)", text).group("url")
+        print urltext
+        if urltext is None:
+            print "error parsing stream"
+        elif urltext:
+            irc.send("PRIVMSG "+ channel +(" : link by %s "%(user)) + webtitle.gettitle(urltext) + '\r\n')
+            
         '''if text.find(":hi") !=-1:
             user = text.split("!")
             user = user[0].strip(":")
