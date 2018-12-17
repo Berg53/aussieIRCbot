@@ -23,6 +23,8 @@ USER_LOOKUP = {
     "duoi": 'IDN60801/IDN60801.95704.json',
     "mwsb": 'IDN60801/IDN60801.94926.json',
     "dudz": 'IDN60801/IDN60801.95757.json',
+    "chris":'IDN60901/IDN60901.94768.json', 
+    "mcspud":'IDV60801/IDV60801.95864.json',
 }
 
 
