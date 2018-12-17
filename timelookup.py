@@ -23,4 +23,4 @@ def get_localized_time(word):
             time=time.strftime('%l:%M%p %Z (%z) %b %d, %Y')
         )
         return formatted_string.replace('_', ' ')
-    return ('Duoi is a docker using %s. Use a listed time zone from link in topic.' %(word))
+    return (' %s is not a timezone on list. Use a listed time zone from link in topic.' %(word))
