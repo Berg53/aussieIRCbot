@@ -5,16 +5,16 @@ import ssl
 import time
 import weatherdefine
 import timelookup
-import admin
 import sys
+import BotDefines
 ## Settings
 ### IRC
 server = "chat.freenode.net"
 port = 6697
 channel = "##aussies"
-botnick = ""
-password = ""
-admin = ""
+botnick = BotDefines.botnick
+password = BotDefines.password
+admin = BotDefines.admin
 
 ### Tail
 tail_files = [
@@ -37,9 +37,7 @@ irc.send("JOIN "+ channel +"\n")
 
 
 
-with open("wordlist.txt") as f:
-    my_lines = f.readlines()
-print my_lines
+
 
 while True:
 
