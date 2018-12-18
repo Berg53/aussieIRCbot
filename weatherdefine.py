@@ -26,7 +26,8 @@ USER_LOOKUP = {
     "chris": 'IDN60901/IDN60901.94768.json', 
     #"mcspud": 'IDV60801/IDV60801.95864.json',
     "mcspud": 'IDV60901/IDV60901.95936.json',
-    "wyoung": 'IDN60801/IDN60801.94749.json'
+    "wyoung": 'IDN60801/IDN60801.94749.json',
+    'win32user':'IDN60801/IDN60801.94757.json',
 }
 
 
