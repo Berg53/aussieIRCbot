@@ -3,14 +3,14 @@ import requests
 
 ROOT_URL = 'http://www.bom.gov.au/fwo/'
 WEATHER_TEXT = (
-        "{name} -- Location {name}'s Place --Time {local_date_time} -- The "
+        "{name} -- Location {username}'s Place --Time {local_date_time} -- The "
         "Wind is from the {wind_dir} -- Wind speed {wind_spd_kt} KPH -- Wind "
         "gusts {gust_kmh} KPH -- Air temps is {air_temp}{degree}C -- {temp_f}"
         "{degree}F -- Relative Humidity is {rel_hum}% -- Air Pressure is "
         "{press}kPa -- Rain {rain_trace}"
 )
 FIELDS = {'rain_trace', 'degree', 'temp_f', 'rel_hum', 'local_date_time',
-        'press', 'wind_dir', 'air_temp', 'name', 'gust_kmh', 'wind_spd_kt'}
+        'press', 'wind_dir', 'air_temp', 'name', 'gust_kmh', 'wind_spd_kt', 'username'}
 USER_LOOKUP = {
     "berg": 'IDN60801/IDN60801.94785.json',
     "bluemaxima": 'IDN60801/IDN60801.94733.json',
@@ -26,6 +26,7 @@ USER_LOOKUP = {
     "chris": 'IDN60901/IDN60901.94768.json', 
     #"mcspud": 'IDV60801/IDV60801.95864.json',
     "mcspud": 'IDV60901/IDV60901.95936.json',
+    "wyoung": 'IDN60801/IDN60801.94749.json'
 }
 
 
@@ -62,6 +63,7 @@ def weather(user):
     output = {k: _get(d, k) for k, v in d.iteritems() if k in FIELDS}
     output['degree'] = u'\N{DEGREE SIGN}'.encode('utf-8')
     output['temp_f'] = '%.2f' % (temp_f* 9/5 + 32)
+    output["username"] = user
 
 
     return _format_output(**output)
