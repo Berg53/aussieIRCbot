@@ -8,6 +8,7 @@ import timelookup
 import sys
 import BotDefines
 import webtitle
+import insult
 ## Settings
 ### IRC
 server = "chat.freenode.net"
@@ -39,7 +40,6 @@ irc.send("JOIN "+ channel +"\n")
 
 
 
-
 while True:
 
     reload(timelookup)
@@ -60,12 +60,9 @@ while True:
             print (city)
             irc.send("PRIVMSG "+ channel +" :" + timelookup.get_localized_time(city) + '\r\n')
 
-        '''urltext = re.search("(?P<url>https?://[^\s]+)", text).group("url")
-        print urltext
-        if urltext is None:
-            print "error parsing stream"
-        elif urltext:
-            irc.send("PRIVMSG "+ channel +(" : link by %s "%(user)) + webtitle.gettitle(urltext) + '\r\n')'''
+        
+        if text.find('insult') != -1:
+            irc.send("PRIVMSG "+ channel +" :" + insult.random_line() + '\r\n')
             
         '''if text.find(":hi") !=-1:
             user = text.split("!")
@@ -73,7 +70,7 @@ while True:
             print user
             irc.send("PRIVMSG "+ channel +" :Hello!\r\n")'''
             
-
+         
             
 
 
