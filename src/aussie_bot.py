@@ -4,12 +4,12 @@ import time
 from importlib import reload
 
 from settings import INSTALLED_MODULES
-
 from connection import get_bot
+from logger import logger
 
+logger.info('Butts')
 
 irc_connection = get_bot()
-
 
 # Connect
 while True:
@@ -22,8 +22,9 @@ while True:
         text = irc_connection.recv(2040)
         log.info(text)
     except Exception as e:
-        logging.error(e)
+        # logger.error(e)
         continue
+
         # user = text.split(b"!")
         # user = user[0].strip(b":")
 
