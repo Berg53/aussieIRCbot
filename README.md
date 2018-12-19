@@ -1,4 +1,16 @@
 # aussieIRCbot
-bot used in freenode irc channel
-This bot can read timezones from the pytz lib and print them to irc channel.
-it can also get weather report from pre defined stations on BOM.
+
+Bot used in freenode irc channel.
+
+## Running
+
+Ensure pipenv is installed. Run `pipenv shell` from project root.
+
+To start the bot, run:
+
+  `python src/aussie_bot.py`
+
+## Modules
+  - Weather: Get's BOM weather reports and prints them to channel
+  - Timezones: Gets timezones from pytz and prints them to channel
+  - Insults: Insults users
