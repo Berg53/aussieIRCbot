@@ -1,7 +1,11 @@
 import random
 
-def random_line():
-    return(random.choice(list(open('insult.txt'))))
 
-def random_text(): 
-    return(random.choice(list(open('random.txt'))))
+def random_line():
+    with open("insult.txt") as f:
+        return random.choice(list(f))
+
+
+def random_text():
+    with open("random.txt") as f:
+        return random.choice(list(f))
