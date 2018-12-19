@@ -11,9 +11,6 @@ from connection import get_bot
 irc_connection = get_bot()
 
 
-
-
-
 # Connect
 while True:
     # Reload modules:
@@ -22,10 +19,13 @@ while True:
         # reload(module)
 
     try:
-        text = irc.recv(2040)
+        text = irc_connection.recv(2040)
         log.info(text)
-        user = text.split(b"!")
-        user = user[0].strip(b":")
+    except Exception as e:
+        logging.error(e)
+        continue
+        # user = text.split(b"!")
+        # user = user[0].strip(b":")
 
 #         if text.find(b"my place") != -1:
 #             print(user)
@@ -69,6 +69,3 @@ while True:
 #         if text.find(b"PING") != -1:
 #             irc.send("PONG {}\r\n".format(text.split()[1]).encode("utf-8"))
 #             print("PONG")
-    except Exception:
-        # TODO: You should probably log here bro!
-        continue
