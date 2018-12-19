@@ -27,7 +27,8 @@ USER_LOOKUP = {
     #"mcspud": 'IDV60801/IDV60801.95864.json',
     "mcspud": 'IDV60901/IDV60901.95936.json',
     "wyoung": 'IDN60801/IDN60801.94749.json',
-    'win32user':'IDN60801/IDN60801.94757.json',
+    'win32user':'IDN60901/IDN60901.94765.json',
+    'orlock': 'IDV60801/IDV60801.94864.json',
 }
 
 
