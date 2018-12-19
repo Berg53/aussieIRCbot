@@ -3,63 +3,41 @@ import socket
 import ssl
 import time
 
-try:
-    import BotDefines
-
-    for attribute in ("botnick", "password", "admin"):
-        try:
-            getattr(BotDefines, attribute)
-        except AttributeError:
-            raise Exception(
-                "Ya haven't defined {} in BotDefines.py!  Go do that cuz!".format(
-                    attribute
-                )
-            )
-except ImportError:
-    raise Exception(
-        "BotDefines.py doesn't exist.  Create one and define the following variables: "
-        "botnick, password and admin."
-    )
-
-import insult
-import timelookup
-import weatherdefine
-
-from importlib import reload
+from settings import NICK, PASSWORD, SERVER, PORT, CHANNEL, LOG_LOCATION
 
 
-# Settings
-# IRC
-server = "chat.freenode.net"
-port = 6697
-channel = "##aussies"
-botnick = BotDefines.botnick
-password = BotDefines.password
-admin = BotDefines.admin
 
-# Tail
-tail_files = ["love.txt"]
+# import insult
+# import timelookup
+# import weatherdefine
+#
+# from importlib import reload
+#
 
-irc_C = socket.socket(socket.AF_INET, socket.SOCK_STREAM)  # defines the socket
-irc = ssl.wrap_socket(irc_C)
 
-print("Establishing connection to [%s]" % (server))
+
+irc_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+irc = ssl.wrap_socket(irc_socket)
+
+# TODO: Log
+print('Establishing connection to [{}]'.format(SERVER))
 # Connect
-irc.connect((server, port))
+irc.connect((SERVER, PORT))
 irc.setblocking(False)
 # irc.send("PASS %s\n" % (password))
-irc.send("USER {0} {0} {0} :meLon-Test\n".format(botnick).encode("utf-8"))
-irc.send("NICK {}\n".format(botnick).encode("utf-8"))
-irc.send(
-    "PRIVMSG nickserv :identify {} {}\r\n".format(botnick, password).encode("utf-8")
-)
-time.sleep(10)
-irc.send("JOIN {}\n".format(channel).encode("utf-8"))
+irc.send("USER {0} {0} {0} :meLon-Test\n".format(NICK).encode("utf-8"))
+irc.send("NICK {}\n".format(NICK).encode("utf-8"))
+# irc.send(
+#     "PRIVMSG nickserv :identify {} {}\r\n".format(botnick, password).encode("utf-8")
+# )
+# time.sleep(10)
+irc.send("JOIN {}\n".format(CHANNEL).encode("utf-8"))
 
 while True:
+    print('BUTTS!')
     # TODO: Find out where reload should be imported from.
-    reload(timelookup)
-    reload(weatherdefine)
+    # reload(timelookup)
+    # reload(weatherdefine)
 
     try:
         text = irc.recv(2040)
