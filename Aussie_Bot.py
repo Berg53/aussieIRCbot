@@ -52,7 +52,7 @@ while True:
 
         if text.find('my place') != -1:
             print(user)
-            irc.send("PRIVMSG "+ channel +" :" + weatherdefine.weather(user) + '\r\n')
+            irc.send("PRIVMSG "+ channel +" :" + weatherdefine.weather(user, text) + '\r\n')
 
         if text.find('!t') != -1:
             city = text.split("!t ")
@@ -63,6 +63,9 @@ while True:
         
         if text.find('insult') != -1:
             irc.send("PRIVMSG "+ channel +" :" + insult.random_line() + '\r\n')
+        
+        if text.find('random') != -1:
+            irc.send("PRIVMSG "+ channel +" :" + insult.random_text() + '\r\n')
             
         '''if text.find(":hi") !=-1:
             user = text.split("!")

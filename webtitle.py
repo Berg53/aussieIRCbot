@@ -24,5 +24,3 @@ def gettitle(url):
     titleSoup = titleSoup.strip('</title>]')
 
     return titleSoup 
-
-print gettitle('https://www.abc.net.au/news/2018-12-17/diwan-al-dawla-charity-status-revoked/10626908')
