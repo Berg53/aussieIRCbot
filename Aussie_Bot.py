@@ -1,16 +1,35 @@
-#!/usr/local/bin/python
-import re
+#!/usr/bin/env python
 import socket
 import ssl
 import time
-import weatherdefine
-import timelookup
-import sys
-import BotDefines
-import webtitle
+
+try:
+    import BotDefines
+
+    for attribute in ("botnick", "password", "admin"):
+        try:
+            getattr(BotDefines, attribute)
+        except AttributeError:
+            raise Exception(
+                "Ya haven't defined {} in BotDefines.py!  Go do that cuz!".format(
+                    attribute
+                )
+            )
+except ImportError:
+    raise Exception(
+        "BotDefines.py doesn't exist.  Create one and define the following variables: "
+        "botnick, password and admin."
+    )
+
 import insult
-## Settings
-### IRC
+import timelookup
+import weatherdefine
+
+from importlib import reload
+
+
+# Settings
+# IRC
 server = "chat.freenode.net"
 port = 6697
 channel = "##aussies"
@@ -18,73 +37,78 @@ botnick = BotDefines.botnick
 password = BotDefines.password
 admin = BotDefines.admin
 
-### Tail
-tail_files = [
-    'love.txt'
-]
+# Tail
+tail_files = ["love.txt"]
 
-irc_C = socket.socket(socket.AF_INET, socket.SOCK_STREAM) #defines the socket
+irc_C = socket.socket(socket.AF_INET, socket.SOCK_STREAM)  # defines the socket
 irc = ssl.wrap_socket(irc_C)
 
-print "Establishing connection to [%s]" % (server)
+print("Establishing connection to [%s]" % (server))
 # Connect
 irc.connect((server, port))
 irc.setblocking(False)
-#irc.send("PASS %s\n" % (password))
-irc.send("USER "+ botnick +" "+ botnick +" "+ botnick +" :meLon-Test\n")
-irc.send("NICK "+ botnick +"\n")
-irc.send("PRIVMSG nickserv :identify %s %s\r\n" % (botnick, password))
+# irc.send("PASS %s\n" % (password))
+irc.send("USER {0} {0} {0} :meLon-Test\n".format(botnick).encode("utf-8"))
+irc.send("NICK {}\n".format(botnick).encode("utf-8"))
+irc.send(
+    "PRIVMSG nickserv :identify {} {}\r\n".format(botnick, password).encode("utf-8")
+)
 time.sleep(10)
-irc.send("JOIN "+ channel +"\n")
-
-
-
+irc.send("JOIN {}\n".format(channel).encode("utf-8"))
 
 while True:
-
+    # TODO: Find out where reload should be imported from.
     reload(timelookup)
     reload(weatherdefine)
+
     try:
-        text=irc.recv(2040)
+        text = irc.recv(2040)
         print(text)
-        user = text.split("!")
-        user = user[0].strip(":")
+        user = text.split(b"!")
+        user = user[0].strip(b":")
 
-        if text.find('my place') != -1:
+        if text.find(b"my place") != -1:
             print(user)
-            irc.send("PRIVMSG "+ channel +" :" + weatherdefine.weather(user, text) + '\r\n')
+            irc.send(
+                "PRIVMSG {} :{}\r\n".format(
+                    channel, weatherdefine.weather(user, text)
+                ).encode("utf-8")
+            )
 
-        if text.find('!t') != -1:
-            city = text.split("!t ")
+        if text.find(b"!t") != -1:
+            city = text.split(b"!t ")
             city = city[1]
-            print (city)
-            irc.send("PRIVMSG "+ channel +" :" + timelookup.get_localized_time(city) + '\r\n')
+            print(city)
+            irc.send(
+                "PRIVMSG {} :{}\r\n".format(
+                    channel, timelookup.get_localized_time(city)
+                ).encode("utf-8")
+            )
 
-        
-        if text.find('insult') != -1:
-            irc.send("PRIVMSG "+ channel +" :" + insult.random_line() + '\r\n')
-        
-        if text.find('random') != -1:
-            irc.send("PRIVMSG "+ channel +" :" + insult.random_text() + '\r\n')
-            
-        '''if text.find(":hi") !=-1:
+        if text.find(b"insult") != -1:
+            irc.send(
+                "PRIVMSG {} :{}\r\n".format(channel, insult.random_line()).encode(
+                    "utf-8"
+                )
+            )
+
+        if text.find(b"random") != -1:
+            irc.send(
+                "PRIVMSG {} :{}\r\n".format(channel, insult.random_text()).encode(
+                    "utf-8"
+                )
+            )
+
+        """if text.find(":hi") !=-1:
             user = text.split("!")
             user = user[0].strip(":")
             print user
-            irc.send("PRIVMSG "+ channel +" :Hello!\r\n")'''
-            
-         
-            
-
-
-
-            
+            irc.send("PRIVMSG "+ channel +" :Hello!\r\n")"""
 
         # Prevent Timeout
-        if text.find('PING') != -1:
-            irc.send('PONG ' + text.split() [1] + '\r\n')
+        if text.find(b"PING") != -1:
+            irc.send("PONG {}\r\n".format(text.split()[1]).encode("utf-8"))
             print("PONG")
-
     except Exception:
+        # TODO: You should probably log here bro!
         continue
-
