@@ -1,20 +1,18 @@
 # Bot
-NICK = 'MrButts'
-PASSWORD = 'butts'
+NICK = "MrButts"
+PASSWORD = "butts"
 
 # Network
 SERVER = "chat.freenode.net"
 PORT = 6697
-CHANNEL = '##aussiebottest'
+CHANNEL = "##aussiebottest"
 
 # Log
-LOG_LOCATION='aussiebot_log.txt'
-
+LOG_LOCATION="aussiebot_log.txt"
 
 INSTALLED_MODULES = (
-    'insult',
-    'time',
-    'weather',
-    'web_title',
+    "insult",
+    "time",
+    "weather",
+    "web_title",
 )
-

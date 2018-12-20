@@ -36,11 +36,11 @@ USER_LOOKUP = {
     "mwsb": "IDN60801/IDN60801.94926.json",
     "dudz": "IDN60801/IDN60801.95757.json",
     "chris": "IDN60901/IDN60901.94768.json",
-    # "mcspud": "IDV60801/IDV60801.95864.json",
     "mcspud": "IDV60901/IDV60901.95936.json",
     "wyoung": "IDN60801/IDN60801.94749.json",
-    "win32user": "IDN60901/IDN60901.94765.json",
+    "win32user":"IDN60901/IDN60901.94765.json",
     "orlock": "IDV60801/IDV60801.94864.json",
+    "pebbles": "IDV60901/IDV60901.94872.json",
 }
 
 
@@ -81,8 +81,8 @@ def weather(user, text):
     temp_f = _get(d, "air_temp")
     temp_c = _calculate_temp_in_c(temp_f)
 
-    output = {k: _get(d, k) for k, v in d.iteritems() if k in FIELDS}
-    output["degree"] = u"\N{DEGREE SIGN}".encode("utf-8")
+    output = {k: _get(d, k) for k, v in d.items() if k in FIELDS}
+    output["degree"] = "\N{DEGREE SIGN}"
     output["temp_f"] = "%.2f" % (temp_f * 9 / 5 + 32)
     output["username"] = user
 
