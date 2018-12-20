@@ -12,3 +12,6 @@ beautifulsoup4 = ">=4.6,<4.7"
 
 [requires]
 python_version = "3.7"
+
+[scripts]
+aussiebot = "pipenv run python src/aussie_bot.py"
