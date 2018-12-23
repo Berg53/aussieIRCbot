@@ -1,3 +1,5 @@
 .idea/
 .vscode/
-aussiebot_log.txt
+quotes.txt
+*.log
+.env

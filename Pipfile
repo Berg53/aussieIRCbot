@@ -6,9 +6,6 @@ verify_ssl = true
 [dev-packages]
 
 [packages]
-requests = ">=2.21,<2.22"
-pytz = ">=2018,<2019"
-beautifulsoup4 = ">=4.6,<4.7"
 
 [requires]
 python_version = "3.7"

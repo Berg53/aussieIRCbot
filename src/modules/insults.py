@@ -1,11 +1,11 @@
 from module import ModuleBaseClass
 
 
-class Weather(ModuleBaseClass):
+class Insult(ModuleBaseClass):
     invocation = 'w'
 
     def execute(self, *args, **kwargs):
-        return 'Weather not found'
+        return 'Insults not found'
 
 
-module = Weather
+module = Insult
