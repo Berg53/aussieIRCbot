@@ -4,7 +4,7 @@ from module import ModuleBaseClass
 class Weather(ModuleBaseClass):
     invocation = 'w'
 
-    def execute(self, *args, **kwargs):
+    def run(self, *args, **kwargs):
         return 'Weather not found'
 
 

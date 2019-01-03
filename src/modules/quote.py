@@ -13,7 +13,7 @@ class Quote(ModuleBaseClass):
             f.write(quote)
             log.msg('Quote added: {}'.format(quote))
 
-    def execute(self, bot, query):
+    def run(self, bot, query):
         for m in bot.messages:
             if query.strip() in m:
                 self._write_message_to_file(message=m, target='quotes.txt')

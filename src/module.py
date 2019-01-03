@@ -20,9 +20,12 @@ class ModuleBaseClass:
     Base class for modules
     """
     invocation = ''
+    errors = []
+    success = ''
 
     def __init__(self, *args, **kwargs):
         self.config = c
+        self.errors = []
 
-    def execute(self, bot, *args, **kwargs):
+    def run(self, bot, *args, **kwargs):
         raise NotImplementedError
