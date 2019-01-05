@@ -57,9 +57,9 @@ def main(argv):
                 match = re.search("(?P<url>https?://[^\s]+)", text)
                 print(match)
                 if match is not None: 
-                                        irc_connection.send(
+                    irc_connection.send(
                         "PRIVMSG {} :{}\r\n".format(
-                            CHANNEL, web_title.gettitle(match.group("url"))
+                            CHANNEL, web_title.gettitle(match.group("url"), user)
                         ).encode("utf-8")
                     )
 
