@@ -7,6 +7,13 @@ from bs4 import BeautifulSoup
 
 def gettitle(url):
     print(url)
+    urlsplit = url.split(".")
+    num=len(urlsplit)
+    try:
+        if urlsplit[num - 1] == "iso": 
+            return('Fuck off with your downloads')
+    except:
+        pass
     # Copy all of the content from the provided web page
     webpage = urlopen(url, timeout=10).read()
 
