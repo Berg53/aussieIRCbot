@@ -2,7 +2,7 @@
 
 import sys
 from importlib import reload, import_module
-
+import re
 from connection import get_bot
 from logger import logger
 from settings import INSTALLED_MODULES, CHANNEL
@@ -51,6 +51,20 @@ def main(argv):
                             CHANNEL, time.get_localized_time(city)
                         ).encode("utf-8")
                     )
+
+            if "web_title" in INSTALLED_MODULES:
+                from modules import web_title
+                match = re.search("(?P<url>https?://[^\s]+)", text)
+                print(match)
+                if match is not None: 
+                                        irc_connection.send(
+                        "PRIVMSG {} :{}\r\n".format(
+                            CHANNEL, web_title.gettitle(match.group("url"))
+                        ).encode("utf-8")
+                    )
+
+
+
 
             if "insult" in INSTALLED_MODULES:
                 from modules import insult

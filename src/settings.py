@@ -1,5 +1,5 @@
 # Bot
-NICK = "MrButts"
+NICK = "MyButts"
 PASSWORD = "butts"
 
 # Network

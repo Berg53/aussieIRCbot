@@ -14,7 +14,7 @@ def get_bot():
 
     irc.connect((SERVER, PORT))
     logger.info('Connected!')
-    irc.setblocking(False)
+    irc.setblocking(True)
     # irc.send("PASS %s\n" % (password))
 
     logger.info('Authenticating...')
