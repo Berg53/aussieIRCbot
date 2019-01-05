@@ -26,7 +26,7 @@ def gettitle(url, user):
     titleSoup = str(titleSoup).strip("[<title>")
     titleSoup = titleSoup.strip("</title>]")
     titleSoup = re.sub("&#(\d+);", lambda m: chr(int(m.group(1))), titleSoup)
-    titleSoup = titleSoup.strip("      ")
+    titleSoup = titleSoup.lstrip()
     logger.info(titleSoup)
     print(titleSoup)
     return(titleSoup)
