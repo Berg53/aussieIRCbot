@@ -1,9 +1,10 @@
+import os
 import random
 
 from module import ModuleBaseClass
 
 
-INSULTS_LOCATION = 'src/data/insults.txt'
+INSULTS_LOCATION = os.getenv('INSULT_FILE', 'data/insults.txt')
 
 class Insult(ModuleBaseClass):
     invocation = 'insult'
