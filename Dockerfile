@@ -5,4 +5,4 @@ WORKDIR /app
 
 COPY . .
 
-RUN pip install twisted pendulum
+RUN pip install twisted pendulum pytz
