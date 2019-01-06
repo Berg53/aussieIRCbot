@@ -29,10 +29,10 @@ class Bot:
             log.msg('Command not found: {}'.format(command))
             return
 
-        # Wrap in Deferred avoid blocking:
+        # Wrap in Deferred to avoid blocking:
         return defer.maybeDeferred(
-            module.run,
-            ' '.join(message_text)
+            f=module.run,
+            args=' '.join(message_text)
         )
 
 
