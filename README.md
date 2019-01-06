@@ -15,3 +15,4 @@ To start the bot, run:
   - Weather: Gets BOM weather reports and prints them to channel
   - Timezones: Gets timezones from pytz and prints them to channel
   - Insults: Insults users
+  - Web_title: get the url users post and find the title and print back to irc.
