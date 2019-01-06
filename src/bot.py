@@ -31,8 +31,8 @@ class Bot:
 
         # Wrap in Deferred to avoid blocking:
         return defer.maybeDeferred(
-            f=module.run,
-            args=' '.join(message_text)
+            module.run,
+            ' '.join(message_text)
         )
 
 

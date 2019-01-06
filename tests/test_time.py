@@ -21,21 +21,21 @@ class DTMock(datetime):
 def test_time():
     t = Time()
     result = t.run('perth')
-    assert result.success == EXPECTED_OUTPUT
+    assert result == EXPECTED_OUTPUT
 
 
 @patch('src.modules.time.datetime', DTMock)
 def test_location_case_insensitive():
     t = Time()
     result = t.run('perth')
-    assert result.success == EXPECTED_OUTPUT
+    assert result == EXPECTED_OUTPUT
 
 
 @patch('src.modules.time.datetime', DTMock)
 def test_location_handles_whitespace():
     t = Time()
     result = t.run('    perth   ')
-    assert result.success == EXPECTED_OUTPUT
+    assert result == EXPECTED_OUTPUT
 
 
 def test_format_time():
@@ -57,8 +57,3 @@ def test_empty_string():
     t = Time()
     t.run('')
     assert t.errors == [ERROR_NOT_FOUND.format('')]
-
-def test_city_lookup():
-    print(CITY_LOOKUP.get('ACT', 'BUTTS'))
-    assert False, CITY_LOOKUP.get('ACT', 'BUTTS')
-
