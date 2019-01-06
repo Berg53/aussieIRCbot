@@ -1,21 +1,25 @@
 import re
 from urllib.request import urlopen
-
+import requests
 from logger import logger
 from bs4 import BeautifulSoup
 
 
 def gettitle(url, user):
-    print(url)
-    urlsplit = url.split(".")
-    num=len(urlsplit)
+    print(test)
+    testUrl=requests.get(url, stream=True)
+    (testUrl.headers['Content-Type']) = (testUrl.headers['Content-Type']).lstrip()
+    print(testUrl.headers['Content-Type'])
     try:
-        if urlsplit[num - 1] == "iso": 
-            return'Fuck off with your downloads ' + user
+        if (testUrl.headers['Content-Type'].find()) != "text/html": 
+            #text/html;charset=utf-8
+            return'Fuck off with your downloads ' + user + (testUrl.headers['Content-Type'])
     except:
         pass
     # Copy all of the content from the provided web page
     webpage = urlopen(url).read()
+    testUrl=requests.get(url, stream=True)
+    print(testUrl)
 
     # Grab everything that lies between the title tags using a REGEX
     patFinderTitle = re.compile("")

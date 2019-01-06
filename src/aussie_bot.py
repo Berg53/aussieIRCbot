@@ -6,6 +6,7 @@ import re
 from connection import get_bot
 from logger import logger
 from settings import INSTALLED_MODULES, CHANNEL
+import random
 
 
 def main(argv):
@@ -21,6 +22,7 @@ def main(argv):
             reload(module)
         try:
             try:
+
                 text = irc_connection.recv(2040).decode("utf-8")
                 logger.debug(text)
             except Exception as e:
@@ -29,11 +31,12 @@ def main(argv):
 
             user = text.split("!")
             user = user[0].strip(":")
-
+            chance = random.randint(1,200)
+            chance1 = random.randint(1,200)
+            
             if "weather" in INSTALLED_MODULES:
                 from modules import weather
                 if text.find("my place") != -1:
-                    print(user)
                     irc_connection.send(
                         "PRIVMSG {} :{}\r\n".format(
                             CHANNEL, weather.weather(user, text)
@@ -45,7 +48,6 @@ def main(argv):
                 if text.find("!t") != -1:
                     city = text.split("!t ")
                     city = city[1]
-                    print(city)
                     irc_connection.send(
                         "PRIVMSG {} :{}\r\n".format(
                             CHANNEL, time.get_localized_time(city)
@@ -55,7 +57,6 @@ def main(argv):
             if "web_title" in INSTALLED_MODULES:
                 from modules import web_title
                 match = re.search("(?P<url>https?://[^\s]+)", text)
-                print(match)
                 if match is not None: 
                     irc_connection.send(
                         "PRIVMSG {} :{}\r\n".format(
@@ -68,14 +69,14 @@ def main(argv):
 
             if "insult" in INSTALLED_MODULES:
                 from modules import insult
-                if text.find("insult") != -1:
+                if chance1 <= 1:
                     irc_connection.send(
                         "PRIVMSG {} :{}\r\n".format(CHANNEL, insult.random_line()).encode(
                             "utf-8"
                         )
                     )
 
-                if text.find("random") != -1:
+                if chance <= 1:
                     irc_connection.send(
                         "PRIVMSG {} :{}\r\n".format(
                             CHANNEL, insult.random_text()
