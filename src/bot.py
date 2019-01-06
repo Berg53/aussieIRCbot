@@ -22,7 +22,8 @@ class Bot:
             return
 
         # Command dispatch:
-        command, *message_text = saved_message.text.lstrip('!').partition(' ')
+        command, *message_text = saved_message.text.lstrip(
+                c.COMMAND_CHARACTER).partition(' ')
         log.msg('Command sent: {}'.format(command))
         module = self.module_dispatch.get(command)
         if not module:
