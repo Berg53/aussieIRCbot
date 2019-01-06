@@ -1,0 +1,10 @@
+version: '3'
+services:
+  bot:
+    build: .
+    volumes:
+      - .:/app
+    working_dir: /app/src
+    command: twistd -ny irc_bot.tac 
+    env_file:
+      - .env
