@@ -25,7 +25,8 @@ JOIN_MESSAGE = os.getenv('IRC_BOT_JOIN_MESSAGE', 'Hi! I am {}'.format(NICK))
 MODULE_LOCATION = 'modules'
 INSTALLED_MODULES = (
     'weather',
-    'quote'
+    'quote',
+    'time'
 )
 
 # Module settings:

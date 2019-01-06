@@ -1,5 +1,7 @@
 from importlib import import_module
 
+from twisted.python import log
+
 import config as c
 
 
@@ -20,12 +22,13 @@ class ModuleBaseClass:
     Base class for modules
     """
     invocation = ''
-    errors = []
     success = ''
+    errors = []
 
     def __init__(self, *args, **kwargs):
         self.config = c
         self.errors = []
+        self.log = log
 
     def run(self, bot, *args, **kwargs):
         raise NotImplementedError

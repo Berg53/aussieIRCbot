@@ -12,6 +12,8 @@ class Bot:
     def __init__(self):
         self.messages = deque(maxlen=c.SCROLLBACK_SIZE)
         self.module_dispatch = setup_modules()
+        log.msg('Installed modules:')
+        log.msg(self.module_dispatch)
 
     def handle_message(self, sender, channel, message):
         saved_message = Message(sender=sender, text=message)
@@ -24,12 +26,12 @@ class Bot:
         log.msg('Command sent: {}'.format(command))
         module = self.module_dispatch.get(command)
         if not module:
+            log.msg('Command not found: {}'.format(command))
             return
 
         # Wrap in Deferred avoid blocking:
         return defer.maybeDeferred(
-            module.execute,
-            self,
+            module.run,
             ' '.join(message_text)
         )
 

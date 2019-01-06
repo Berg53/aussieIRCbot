@@ -15,15 +15,20 @@ class Time(ModuleBaseClass):
     invocation = 't'
 
     def run(self, message):
+        self.log('Running Time module with: ')
+        self.log.msg(message)
         location = message.strip()
         timezone = CITY_LOOKUP.get(location.upper())
         if not timezone:
             self.errors.append(ERROR_NOT_FOUND.format(location))
+            raise Exception(self.errors)
         else:
             time = datetime.now(pytz.timezone(timezone))
             self.success = self._format_time(timezone, time)
-            return self
+            return self.success
 
     def _format_time(self, timezone, time):
         formatted_time = datetime.strftime(time, DATE_FORMAT)
         return OUTPUT_FORMAT.format(timezone, formatted_time)
+
+module = Time

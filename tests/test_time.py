@@ -2,11 +2,12 @@ from datetime import datetime
 
 from mock import patch
 
-from src.modules.time import Time, ERROR_NOT_FOUND, OUTPUT_FORMAT
+from src.modules.time import Time, CITY_LOOKUP, ERROR_NOT_FOUND, OUTPUT_FORMAT
 
 inputs = ['London', 'Perth', 'Sydney', 'perth', 'NZ', 'New York']
 
-EXPECTED_OUTPUT = 'Australia/Perth:  7:52AM AWST (+0800) Jan 04, 2019'
+EXPECTED_OUTPUT = 'Australia/Perth:  7:52AM LMT (+0743) Jan 04, 2019'
+
 
 class DTMock(datetime):
     """
@@ -23,16 +24,18 @@ def test_time():
     assert result.success == EXPECTED_OUTPUT
 
 
-# def test_location_case_insensitive():
-#     t = Time()
-#     result = t.run('perth')
-#     assert result.success == 'perth'
-#
-#
-# def test_location_handles_whitespace():
-#     t = Time()
-#     result = t.run('    perth   ')
-#     assert result.success == 'perth'
+@patch('src.modules.time.datetime', DTMock)
+def test_location_case_insensitive():
+    t = Time()
+    result = t.run('perth')
+    assert result.success == EXPECTED_OUTPUT
+
+
+@patch('src.modules.time.datetime', DTMock)
+def test_location_handles_whitespace():
+    t = Time()
+    result = t.run('    perth   ')
+    assert result.success == EXPECTED_OUTPUT
 
 
 def test_format_time():
@@ -54,4 +57,8 @@ def test_empty_string():
     t = Time()
     t.run('')
     assert t.errors == [ERROR_NOT_FOUND.format('')]
+
+def test_city_lookup():
+    print(CITY_LOOKUP.get('ACT', 'BUTTS'))
+    assert False, CITY_LOOKUP.get('ACT', 'BUTTS')
 
