@@ -6,7 +6,6 @@ from bs4 import BeautifulSoup
 
 
 def gettitle(url, user):
-    print(test)
     testUrl=requests.get(url, stream=True)
     (testUrl.headers['Content-Type']) = (testUrl.headers['Content-Type']).lstrip()
     print(testUrl.headers['Content-Type'])
