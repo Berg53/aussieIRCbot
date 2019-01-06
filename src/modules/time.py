@@ -6,23 +6,24 @@ from module import ModuleBaseClass
 
 OUTPUT_FORMAT = '{}: {}'
 DATE_FORMAT = '%l:%M%p %Z (%z) %b %d, %Y'
-ERROR_NOT_FOUND = 'Timezone not found for {}'
+ERROR_NOT_FOUND = "Timezone not found: '{}'"
 
-CITY_LOOKUP = {x.split('/')[-1].lower(): x for x in pytz.all_timezones}
+CITY_LOOKUP = {x.split('/')[-1].upper(): x for x in pytz.all_timezones}
 
 
 class Time(ModuleBaseClass):
     invocation = 't'
 
     def run(self, message):
-        location = message.strip().lower()
-        timezone = CITY_LOOKUP.get(location)
+        location = message.strip()
+        timezone = CITY_LOOKUP.get(location.upper())
         if not timezone:
             self.errors.append(ERROR_NOT_FOUND.format(location))
-            return
-        self.success = location
-        return self
+        else:
+            time = datetime.now(pytz.timezone(timezone))
+            self.success = self._format_time(timezone, time)
+            return self
 
     def _format_time(self, timezone, time):
         formatted_time = datetime.strftime(time, DATE_FORMAT)
-        return OUTPUT_FORMAT.format(timezone.capitalize(), formatted_time)
+        return OUTPUT_FORMAT.format(timezone, formatted_time)

@@ -11,6 +11,5 @@ ipython = "*"
 
 [packages]
 pendulum = "*"
+twisted = "*"
 
-[requires]
-python_version = "3.7"
