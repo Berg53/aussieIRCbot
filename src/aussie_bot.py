@@ -43,10 +43,17 @@ def main(argv):
                 pass
             chance = random.randint(1,200)
             chance1 = random.randint(1,200)
+
             
             if "weather" in INSTALLED_MODULES:
                 from modules import weather
-                if text.find("my place") != -1:
+                chance = random.randint(1,200)
+                chance1 = random.randint(1,200)
+                words = text.split(":")[2].strip("\r\n")
+                words = words.split()
+                words = words[0] + words[1]
+                print(words)
+                if words == "myplace":
                     irc_connection.send(
                         "PRIVMSG {} :{}\r\n".format(
                             CHANNEL, weather.weather(user, text)

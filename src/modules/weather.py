@@ -63,12 +63,12 @@ def _calculate_temp_in_c(temp):
 
 def weather(user, text):
     user = user.lower()
-    words = text.split(":")[2].strip("\r\n")
+    '''words = text.split(":")[2].strip("\r\n")
     words = words.split()
     words = words[0] + words[1]
     print(words)
     if words != "myplace":
-        return
+        return'''
     if user == "stiv":
         return _stiv_bullshit()
     url = ROOT_URL + USER_LOOKUP.get(user)
