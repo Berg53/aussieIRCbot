@@ -7,6 +7,7 @@ from bs4 import BeautifulSoup
 
 def gettitle(url, user):
     testUrl=requests.get(url, stream=True)
+    print(testUrl)
     htmlcontent = (testUrl.headers['Content-Type'])
     print(htmlcontent)
     try:
@@ -26,11 +27,10 @@ def gettitle(url, user):
 
     soup2 = BeautifulSoup(webpage, features="html.parser")
     titleSoup = soup2.findAll("title")
-    descSoup = soup2.findAll("p")
     titleSoup = str(titleSoup).strip("[<title>")
     titleSoup = titleSoup.strip("</title>]")
     titleSoup = re.sub("&#(\d+);", lambda m: chr(int(m.group(1))), titleSoup)
     titleSoup = titleSoup.lstrip()
     logger.info(titleSoup)
     print(titleSoup)
-    return(titleSoup)
+    return(titleSoup, url)
