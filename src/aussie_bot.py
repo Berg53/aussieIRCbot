@@ -13,7 +13,6 @@ def main(argv):
     logger.info('Butts')
 
     irc_connection = get_bot()
-
     # Connect
     while True:
         # Reload modules:
@@ -28,9 +27,20 @@ def main(argv):
             except Exception as e:
                 logger.error(e)
                 continue
+            #check for private message
 
             user = text.split("!")
             user = user[0].strip(":")
+            if text.find('PRIVMSG Canned_Peaches :') != -1:
+                logger.info('did not find channel message this is a private message too bot')
+                irc_connection.send(
+                        "PRIVMSG {} :{}\r\n".format(user, insult.random_line()).encode(
+                            "utf-8"
+                        )
+                    )
+                text=""
+            else:
+                pass
             chance = random.randint(1,200)
             chance1 = random.randint(1,200)
             
