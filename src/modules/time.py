@@ -14,8 +14,8 @@ CITY_LOOKUP = {x.split('/')[-1].upper(): x for x in pytz.all_timezones}
 class Time(ModuleBaseClass):
     invocation = 't'
 
-    def run(self, message):
-        self.log.msg('Running Time module with: ')
+    def run(self, message, *args, **kwags):
+        self.log.msg('Running Time module with arguments: ')
         self.log.msg(message)
         location = message.strip()
         timezone = CITY_LOOKUP.get(location.upper())
