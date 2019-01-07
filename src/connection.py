@@ -22,11 +22,9 @@ def get_bot():
     irc.send("NICK {}\n".format(NICK).encode("utf-8"))
     logger.info('Authenticated!')
 
-    # irc.send(
-    #     "PRIVMSG nickserv :identify {} {}\r\n".format(botnick, password).encode("utf-8")
-    # )
+    irc.send("PRIVMSG nickserv :identify {}\r\n".format(PASSWORD).encode("utf-8"))
     # time.sleep(10)
-
+    # irc.send("PASS %s\n" % (password))
     logger.info('Joining channel...')
     irc.send("JOIN {}\n".format(CHANNEL).encode("utf-8"))
     logger.info('Joined!')
