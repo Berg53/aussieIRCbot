@@ -26,7 +26,7 @@ def newsfeed(num, newsoutlet):
         if index >= int(num):
             print(num)
             break 
-    return(news1 , news)
+    return("{} :URL = {}".format(news1 , news))
 def random_line(insult_file=None):
     if insult_file is None:
         insult_file = os.path.join(

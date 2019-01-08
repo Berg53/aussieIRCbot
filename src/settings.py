@@ -1,11 +1,11 @@
 # Bot
-NICK = "Canned_Peaches"
-PASSWORD = "butts"
+NICK = "CherryBaby"
+PASSWORD = ""
 
 # Network
 SERVER = "chat.freenode.net"
 PORT = 6697
-CHANNEL = "##aussiebottest"
+CHANNEL = "##aussies"
 
 # Log
 LOG_LOCATION="aussiebot_log.txt"

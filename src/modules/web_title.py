@@ -33,4 +33,4 @@ def gettitle(url, user):
     titleSoup = titleSoup.lstrip()
     logger.info(titleSoup)
     print(titleSoup)
-    return(titleSoup, url)
+    return("{} {}" . format(titleSoup, url))
