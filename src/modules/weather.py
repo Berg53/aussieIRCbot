@@ -7,7 +7,8 @@ WEATHER_TEXT = (
     "Wind is from the {wind_dir} -- Wind speed {wind_spd_kt} KPH -- Wind "
     "gusts {gust_kmh} KPH -- Air temps is {air_temp}{degree}C -- {temp_f}"
     "{degree}F -- Relative Humidity is {rel_hum}% -- Air Pressure is "
-    "{press}kPa -- Rain {rain_trace}"
+    "{press}kPa -- Rain {rain_trace} -- co-ord's Lon/Lat {lon}/{lat}" 
+    
 )
 FIELDS = {
     "rain_trace",
@@ -22,6 +23,9 @@ FIELDS = {
     "gust_kmh",
     "wind_spd_kt",
     "username",
+    "lat",
+    "lon",
+    "sea_state",
 }
 USER_LOOKUP = {
     "sveta": 'IDN60901/IDN60901.94767.json',
@@ -81,7 +85,6 @@ def weather(user, text):
 
     resp = requests.get(url).json()
     d = resp.get("observations", {}).get("data")[-1]
-
     temp_f = _get(d, "air_temp")
     temp_c = _calculate_temp_in_c(temp_f)
 

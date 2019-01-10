@@ -7,7 +7,7 @@ from connection import get_bot
 from logger import logger
 from settings import INSTALLED_MODULES, CHANNEL
 import random
-
+from settings import NICK
 
 def main(argv):
     logger.info('Butts')
@@ -28,26 +28,35 @@ def main(argv):
                 logger.error(e)
                 continue
             #rejoin channel on kick
-            if text.find('KICK ##aussies Canned_Peaches') != -1:
+            if text.find('KICK ##aussies ' + NICK) != -1:
                 irc_connection.send("JOIN {}\n".format(CHANNEL).encode("utf-8"))
             #check for private message
             # Prevent Timeout
             print(text)
+
             if text.find("PING") != -1:
                 irc_connection.send("PONG {}\r\n".format(text.split()[1]).encode("utf-8"))
                 print("PONG")
             user = text.split("!")
             user = user[0].strip(":")
-            if text.find('PRIVMSG Canned_Peaches :') != -1 or text.find('NOTICE Canned_Peaches :') != -1:
-                logger.info('did not find channel message this is a private message too bot')
-                irc_connection.send(
-                        "PRIVMSG {} :{}\r\n".format(user, insult.random_line()).encode(
-                            "utf-8"
-                        )
-                    )
-                text=""
-            else:
-                pass
+            try:
+                if text.find('PRIVMSG ' + NICK) != -1 or text.find('NOTICE '+ NICK) != -1:#see if its a private message
+                    if text.find(':NickServ!NickServ@services. NOTICE') == -1:#check thats its not NickServ
+                        logger.info('private message too bot : {}'.format(text))
+                        irc_connection.send(
+                                "PRIVMSG {} :{}\r\n".format(user, insult.random_line()).encode(
+                                    "utf-8"
+                                )
+                            )
+                        
+
+                        text=""
+                else:
+                    pass
+            except Exception as e:
+                logger.error('for private message' , (e))
+
+
             chance = random.randint(1,200)
             chance1 = random.randint(1,200)
 
