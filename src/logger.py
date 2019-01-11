@@ -8,9 +8,10 @@ logger.setLevel(logging.DEBUG)
 # log to file:
 handler = logging.FileHandler(LOG_LOCATION)
 
-formatter = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s')
+formatter = logging.Formatter(
+    "%(asctime)s - %(name)s - %(levelname)s - %(message)s")
 handler.setFormatter(formatter)
 
 # add handler to the logger
 logger.addHandler(handler)
-logger.info('Logger initialised')
+logger.info("Logger initialised")

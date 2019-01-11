@@ -11,7 +11,8 @@ def get_localized_time(word):
         return "Timezone blank"
 
     for timezone in timezone_list:
-        split_timezone = timezone.split("/")[1] if "/" in timezone else timezone
+        split_timezone = timezone.split(
+            "/")[1] if "/" in timezone else timezone
 
         if word not in split_timezone.lower().replace("_", " "):
             continue

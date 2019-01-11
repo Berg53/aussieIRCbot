@@ -1,17 +1,16 @@
-#!/usr/bin/env python
-
-import sys
+''' Run irc bot logic and connection '''
 from importlib import reload, import_module
 import re
+import random
 from connection import get_bot
 from logger import logger
 from settings import INSTALLED_MODULES, CHANNEL
-import random
 from settings import NICK
 
-def main(argv):
-    logger.info('Butts')
 
+def main():
+    '''main loop'''
+    logger.info("Butts")
     irc_connection = get_bot()
     # Connect
     while True:
@@ -24,48 +23,54 @@ def main(argv):
 
                 text = irc_connection.recv(2040).decode("utf-8")
                 logger.debug(text)
-            except Exception as e:
-                logger.error(e)
+            except Exception as error_point:
+                logger.error(error_point)
                 continue
-            #rejoin channel on kick
-            if text.find('KICK ##aussies ' + NICK) != -1:
-                irc_connection.send("JOIN {}\n".format(CHANNEL).encode("utf-8"))
-            #check for private message
+            # rejoin channel on kick
+            if text.find("KICK ##aussies " + NICK) != -1:
+                irc_connection.send(
+                    "JOIN {}\n".format(CHANNEL).encode("utf-8"))
+            # check for private message
             # Prevent Timeout
             print(text)
 
             if text.find("PING") != -1:
-                irc_connection.send("PONG {}\r\n".format(text.split()[1]).encode("utf-8"))
+                irc_connection.send(
+                    "PONG {}\r\n".format(text.split()[1]).encode("utf-8")
+                )
                 print("PONG")
             user = text.split("!")
             user = user[0].strip(":")
             try:
-                if text.find('PRIVMSG ' + NICK) != -1 or text.find('NOTICE '+ NICK) != -1:#see if its a private message
-                    if text.find(':NickServ!NickServ@services. NOTICE') == -1:#check thats its not NickServ
-                        logger.info('private message too bot : {}'.format(text))
+                if (
+                        text.find("PRIVMSG " + NICK) != -1
+                        or text.find("NOTICE " + NICK) != -1
+                ):  # see if its a private message
+                    if (
+                            text.find(":NickServ!NickServ@services. NOTICE") == -1
+                    ):  # check thats its not NickServ
+                        logger.info(
+                            "private message too bot : %s", text)
+                        from modules import insult
                         irc_connection.send(
-                                "PRIVMSG {} :{}\r\n".format(user, insult.random_line()).encode(
-                                    "utf-8"
-                                )
-                            )
-                        
+                            "PRIVMSG {} :{}\r\n".format(
+                                user, insult.random_line()
+                            ).encode("utf-8")
+                        )
 
-                        text=""
+                        text = ""
                 else:
                     pass
-            except Exception as e:
-                logger.error('for private message' , (e))
+            except Exception as error_point:
+                logger.error("for private message %s", error_point)
 
+            #chance = random.randint(1, 200)
+            chance1 = random.randint(1, 200)
 
-            chance = random.randint(1,200)
-            chance1 = random.randint(1,200)
-
-
-
-            
             if "weather" in INSTALLED_MODULES:
                 from modules import weather
-                if text.find('my place') != -1:
+
+                if text.find("my place") != -1:
                     words = text.split(":")[2].strip("\r\n")
                     words = words.split()
                     words = words[0] + words[1]
@@ -78,6 +83,7 @@ def main(argv):
 
             if "time" in INSTALLED_MODULES:
                 from modules import time
+
                 if text.find("!t") != -1:
                     city = text.split("!t ")
                     city = city[1]
@@ -89,24 +95,24 @@ def main(argv):
 
             if "web_title" in INSTALLED_MODULES:
                 from modules import web_title
-                match = re.search("(?P<url>https?://[^\s]+)", text)
-                if match is not None: 
+
+                match = re.search(r"(?P<url>https?://[^\s]+)", text)
+                if match is not None:
                     irc_connection.send(
                         "PRIVMSG {} :{}\r\n".format(
-                            CHANNEL, web_title.gettitle(match.group("url"), user)
-                        ).encode("utf-8")
-                    )
-
-
-
+                            CHANNEL,
+                            web_title.gettitle(
+                                match.group("url"),
+                                user)).encode("utf-8"))
 
             if "insult" in INSTALLED_MODULES:
                 from modules import insult
+
                 if chance1 <= 1:
                     irc_connection.send(
-                        "PRIVMSG {} :{}\r\n".format(CHANNEL, insult.random_line()).encode(
-                            "utf-8"
-                        )
+                        "PRIVMSG {} :{}\r\n".format(
+                            CHANNEL, insult.random_line()
+                        ).encode("utf-8")
                     )
 
                 if text.find("!q") != -1:
@@ -123,18 +129,19 @@ def main(argv):
                                 CHANNEL, insult.newsfeed(num[4], num[5])
                             ).encode("utf-8")
                         )
-                except:
+                except BaseException:
                     irc_connection.send(
-                       "PRIVMSG {} :{}\r\n".format(
-                           CHANNEL, ('User the format !n num num the first is the news item and the second is the newsfeed. !n # #')
-                         ).encode("utf-8")
-                    )
-        except Exception as e:
-            logger.error('end of if aussie_bot' , (e))
+                        "PRIVMSG {} :{}\r\n".format(
+                            CHANNEL,
+                            ("User the format !n num num the first is the"
+                             " news item and the second is the newsfeed. !n # #"),
+                        ).encode("utf-8"))
+        except Exception as error_point:
+            logger.error("end of if aussie_bot %s", error_point)
 
 
 if __name__ == "__main__":
     try:
-        main(sys.argv)
+        main()
     except KeyboardInterrupt:
         ...

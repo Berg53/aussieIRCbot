@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # -*- coding: utf-8; mode: python; py-indent-offset: 4; indent-tabs-mode: nil -*-
-# vim: fileencoding=utf-8 tabstop=4 expandtab shiftwidth=4
+# gedit: fileencoding=utf-8 tabstop=4 expandtab shiftwidth=4
 
 import re
 from urllib.request import urlopen
@@ -10,21 +10,21 @@ from bs4 import BeautifulSoup
 
 
 def gettitle(url, user):
-    testUrl=requests.get(url, stream=True)
+    '''find the title of a url address'''
+    testUrl = requests.get(url, stream=True)
     print(testUrl)
-    htmlcontent = (testUrl.headers['Content-Type'])
+    htmlcontent = testUrl.headers["Content-Type"]
     print(htmlcontent)
     try:
 
-        if (htmlcontent.find('text/html')) == -1:
+        if (htmlcontent.find("text/html")) == -1:
             print("debug")
-            return'Fuck off with your downloads ' + user
+            return "Fuck off with your downloads " + user
     except Exception as e:
         print(e)
         pass
     # Copy all of the content from the provided web page
     webpage = urlopen(url).read()
-
 
     # Grab everything that lies between the title tags using a REGEX
     patFinderTitle = re.compile("")
@@ -33,8 +33,8 @@ def gettitle(url, user):
     titleSoup = soup2.findAll("title")
     titleSoup = str(titleSoup).strip("[<title>")
     titleSoup = titleSoup.strip("</title>]")
-    titleSoup = re.sub("&#(\d+);", lambda m: chr(int(m.group(1))), titleSoup)
+    titleSoup = re.sub(r"&#(\d+);", lambda m: chr(int(m.group(1))), titleSoup)
     titleSoup = titleSoup.lstrip()
     logger.info(titleSoup)
     print(titleSoup)
-    return("{} {}" . format(titleSoup, url))
+    return "{} {}".format(titleSoup, url)
