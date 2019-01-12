@@ -1,3 +1,4 @@
+'''find the weather per user name'''
 import requests
 
 
@@ -42,7 +43,7 @@ USER_LOOKUP = {
     "mwsb": "IDN60801/IDN60801.94926.json",
     "dudz": "IDN60801/IDN60801.95757.json",
     "chris": "IDN60901/IDN60901.94768.json",
-    "spuds": "IDV60901/IDV60901.95936.json",
+    "macspud": "IDV60901/IDV60901.95936.json",
     "veritay": "IDV60901/IDV60901.95936.json",
     "wyoung": "IDN60801/IDN60801.94749.json",
     "win32user": "IDN60901/IDN60901.94765.json",
@@ -57,9 +58,9 @@ def _stiv_bullshit():
     return url
 
 
-def _get(d, item):
+def _get(weather_data, item):
     '''get the data from url'''
-    return d.get(item, "")
+    return weather_data.get(item, "")
 
 
 def _format_output(**values):
@@ -72,15 +73,10 @@ def _calculate_temp_in_c(temp):
     return str((temp * 9 / 5.0 + 32) if temp else "")
 
 
-def weather(user, text):
+def weather(user):
     '''get the weather per pre defined uer url'''
     user = user.lower()
-    """words = text.split(":")[2].strip("\r\n")
-    words = words.split()
-    words = words[0] + words[1]
-    print(words)
-    if words != "myplace":
-        return"""
+
     if user == "stiv":
         return _stiv_bullshit()
     url = ROOT_URL + USER_LOOKUP.get(user)
@@ -88,11 +84,10 @@ def weather(user, text):
         return "Berg was too busy sucking dongs to add your location."
 
     resp = requests.get(url).json()
-    d = resp.get("observations", {}).get("data")[-1]
-    temp_f = _get(d, "air_temp")
-    temp_c = _calculate_temp_in_c(temp_f)
+    weather_data = resp.get("observations", {}).get("data")[-1]
+    temp_f = _get(weather_data, "air_temp")
 
-    output = {k: _get(d, k) for k, v in d.items() if k in FIELDS}
+    output = {k: _get(weather_data, k) for k, v in weather_data.items() if k in FIELDS}
     output["degree"] = "\N{DEGREE SIGN}"
     output["temp_f"] = "%.2f" % (temp_f * 9 / 5 + 32)
     output["username"] = user

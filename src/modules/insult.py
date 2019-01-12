@@ -2,7 +2,7 @@
 import random
 import os.path
 import feedparser
-from logger import logger
+from logger import LOGGER
 
 
 def newsfeed(num, newsoutlet):
@@ -41,7 +41,7 @@ def newsfeed(num, newsoutlet):
                 break
         return "{} :URL = {}".format(news1, news)
     except Exception as error_name:
-        logger.error("News Log errors %s", (error_name))
+        LOGGER.error("News Log errors %s", (error_name))
 
 
 def random_line(insult_file=None):

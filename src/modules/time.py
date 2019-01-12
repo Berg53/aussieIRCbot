@@ -1,16 +1,18 @@
+'''Find the time zone to compare with city var'''
 from datetime import datetime
 
 import pytz
 
-timezone_list = pytz.all_timezones
+TIMEZONE_LIST = pytz.all_timezones
 
 
 def get_localized_time(word):
+    '''retreive the time zone for city'''
     word = word.lower().strip()
     if not word:
         return "Timezone blank"
 
-    for timezone in timezone_list:
+    for timezone in TIMEZONE_LIST:
         split_timezone = timezone.split(
             "/")[1] if "/" in timezone else timezone
 

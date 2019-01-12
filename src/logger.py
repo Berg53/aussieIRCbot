@@ -1,17 +1,18 @@
+'''script for formatting logs'''
 import logging
 
 from settings import LOG_LOCATION
 
-logger = logging.getLogger(__name__)
-logger.setLevel(logging.DEBUG)
+LOGGER = logging.getLogger(__name__)
+LOGGER.setLevel(logging.DEBUG)
 
 # log to file:
-handler = logging.FileHandler(LOG_LOCATION)
+HANDLER = logging.FileHandler(LOG_LOCATION)
 
-formatter = logging.Formatter(
+FORMATTER = logging.Formatter(
     "%(asctime)s - %(name)s - %(levelname)s - %(message)s")
-handler.setFormatter(formatter)
+HANDLER.setFormatter(FORMATTER)
 
-# add handler to the logger
-logger.addHandler(handler)
-logger.info("Logger initialised")
+# add HANDLER to the LOGGER
+LOGGER.addHandler(HANDLER)
+LOGGER.info("Logger initialised")

@@ -3,14 +3,14 @@ from importlib import reload, import_module
 import re
 import random
 from connection import get_bot
-from logger import logger
+from logger import LOGGER
 from settings import INSTALLED_MODULES, CHANNEL
 from settings import NICK
 
 
 def main():
     '''main loop'''
-    logger.info("Butts")
+    LOGGER.info("Butts")
     irc_connection = get_bot()
     # Connect
     while True:
@@ -22,9 +22,9 @@ def main():
             try:
 
                 text = irc_connection.recv(2040).decode("utf-8")
-                logger.debug(text)
+                LOGGER.debug(text)
             except Exception as error_point:
-                logger.error(error_point)
+                LOGGER.error(error_point)
                 continue
             # rejoin channel on kick
             if text.find("KICK ##aussies " + NICK) != -1:
@@ -49,7 +49,7 @@ def main():
                     if (
                             text.find(":NickServ!NickServ@services. NOTICE") == -1
                     ):  # check thats its not NickServ
-                        logger.info(
+                        LOGGER.info(
                             "private message too bot : %s", text)
                         from modules import insult
                         irc_connection.send(
@@ -62,13 +62,15 @@ def main():
                 else:
                     pass
             except Exception as error_point:
-                logger.error("for private message %s", error_point)
+                LOGGER.error("for private message %s", error_point)
 
             #chance = random.randint(1, 200)
             chance1 = random.randint(1, 200)
 
             if "weather" in INSTALLED_MODULES:
                 from modules import weather
+                if text.find('my place macspud') != -1:
+                    user = 'macspud'
 
                 if text.find("my place") != -1:
                     words = text.split(":")[2].strip("\r\n")
@@ -77,7 +79,7 @@ def main():
                     if words == "myplace":
                         irc_connection.send(
                             "PRIVMSG {} :{}\r\n".format(
-                                CHANNEL, weather.weather(user, text)
+                                CHANNEL, weather.weather(user)
                             ).encode("utf-8")
                         )
 
@@ -137,7 +139,7 @@ def main():
                              " news item and the second is the newsfeed. !n # #"),
                         ).encode("utf-8"))
         except Exception as error_point:
-            logger.error("end of if aussie_bot %s", error_point)
+            LOGGER.error("end of if aussie_bot %s", error_point)
 
 
 if __name__ == "__main__":
