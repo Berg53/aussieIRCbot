@@ -41,6 +41,7 @@ def main():
                 print("PONG")
             user = text.split("!")
             user = user[0].strip(":")
+            # pylint: disable=bad-continuation
             try:
                 if (
                         text.find("PRIVMSG " + NICK) != -1
@@ -71,7 +72,11 @@ def main():
                 from modules import weather
                 if text.find('my place macspud') != -1:
                     user = 'macspud'
-
+                    irc_connection.send(
+                        "PRIVMSG {} :{}\r\n".format(
+                            CHANNEL, weather.weather(user)
+                        ).encode("utf-8")
+                    )
                 if text.find("my place") != -1:
                     words = text.split(":")[2].strip("\r\n")
                     words = words.split()
