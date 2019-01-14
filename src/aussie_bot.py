@@ -70,15 +70,16 @@ def main():
 
             if "weather" in INSTALLED_MODULES:
                 from modules import weather
-                if text.find('my place macspud') != -1:
-                    user = 'macspud'
+                print(user, text)
+                '''if text.find('my place') != -1:
+                    #user = 'mcspud'
                     irc_connection.send(
                         "PRIVMSG {} :{}\r\n".format(
                             CHANNEL, weather.weather(user)
                         ).encode("utf-8")
-                    )
+                    )'''
                 if text.find("my place") != -1:
-                    words = text.split(":")[2].strip("\r\n")
+                    words = text.split("##aussies :")[1].strip("\r\n")
                     words = words.split()
                     words = words[0] + words[1]
                     if words == "myplace":
