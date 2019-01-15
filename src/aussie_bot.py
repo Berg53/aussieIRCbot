@@ -129,12 +129,14 @@ def main():
                             CHANNEL, insult.random_text()
                         ).encode("utf-8")
                     )
+            if "news_feed" in INSTALLED_MODULES:
+                from modules import news_feed
                 try:
                     num = text.split()
                     if text.find("!n") != -1:
                         irc_connection.send(
                             "PRIVMSG {} :{}\r\n".format(
-                                CHANNEL, insult.newsfeed(num[4], num[5])
+                                CHANNEL, news_feed.newsfeed(num[4], num[5])
                             ).encode("utf-8")
                         )
                 except BaseException:
@@ -144,6 +146,8 @@ def main():
                             ("User the format !n num num the first is the"
                              " news item and the second is the newsfeed. !n # #"),
                         ).encode("utf-8"))
+
+
         except Exception as error_point:
             LOGGER.error("end of if aussie_bot %s", error_point)
 
