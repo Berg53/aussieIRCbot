@@ -3,15 +3,20 @@ name = "pypi"
 url = "https://pypi.org/simple"
 verify_ssl = true
 
-[dev-packages]
-
 [packages]
 requests = ">=2.21,<2.22"
 pytz = ">=2018,<2019"
 beautifulsoup4 = ">=4.6,<4.7"
+mechanicalsoup = "*"
 
 [requires]
 python_version = "3.7"
 
 [scripts]
 aussiebot = "pipenv run python src/aussie_bot.py"
+
+[dev-packages]
+pylint = "*"
+safety = "*"
+bandit = "*"
+black = "*"
