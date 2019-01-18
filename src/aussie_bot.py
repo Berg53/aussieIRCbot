@@ -27,7 +27,7 @@ def main():
                 LOGGER.error(error_point)
                 continue
             # rejoin channel on kick
-            if text.find("KICK ##aussies " + NICK) != -1:
+            if text.find("KICK {} {} ".format(CHANNEL, NICK)) != -1:
                 irc_connection.send(
                     "JOIN {}\n".format(CHANNEL).encode("utf-8"))
             # check for private message
@@ -79,7 +79,7 @@ def main():
                         ).encode("utf-8")
                     )'''
                 if text.find("my place") != -1:
-                    words = text.split("##aussies :")[1].strip("\r\n")
+                    words = text.split("{} :".format(CHANNEL))[1].strip("\r\n")
                     words = words.split()
                     words = words[0] + words[1]
                     if words == "myplace":
@@ -149,7 +149,7 @@ def main():
 
 
         except Exception as error_point:
-            LOGGER.error("end of if aussie_bot %s", error_point)
+            LOGGER.error("end of IF for aussie_bot %s", error_point)
 
 
 if __name__ == "__main__":
