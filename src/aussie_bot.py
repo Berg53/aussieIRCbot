@@ -27,14 +27,9 @@ def main():
                 LOGGER.error(error_point)
                 continue
             # rejoin channel on kick
-<<<<<<< bugfixes
             if text.find("KICK {} {} ".format(CHANNEL, NICK)) != -1:
                 irc_connection.send(
                     "JOIN {}\n".format(CHANNEL).encode("utf-8"))
-=======
-            if text.find("KICK ##aussies " + NICK) != -1:
-                irc_connection.send("JOIN {}\n".format(CHANNEL).encode("utf-8"))
->>>>>>> master
             # check for private message
             # Prevent Timeout
             print(text)
