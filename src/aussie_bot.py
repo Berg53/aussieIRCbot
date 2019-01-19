@@ -1,4 +1,4 @@
-''' Run irc bot logic and connection '''
+""" Run irc bot logic and connection """
 from importlib import reload, import_module
 import re
 import random
@@ -9,7 +9,7 @@ from settings import NICK
 
 
 def main():
-    '''main loop'''
+    """main loop"""
     LOGGER.info("Butts")
     irc_connection = get_bot()
     # Connect
@@ -28,8 +28,7 @@ def main():
                 continue
             # rejoin channel on kick
             if text.find("KICK ##aussies " + NICK) != -1:
-                irc_connection.send(
-                    "JOIN {}\n".format(CHANNEL).encode("utf-8"))
+                irc_connection.send("JOIN {}\n".format(CHANNEL).encode("utf-8"))
             # check for private message
             # Prevent Timeout
             print(text)
@@ -44,15 +43,15 @@ def main():
             # pylint: disable=bad-continuation
             try:
                 if (
-                        text.find("PRIVMSG " + NICK) != -1
-                        or text.find("NOTICE " + NICK) != -1
+                    text.find("PRIVMSG " + NICK) != -1
+                    or text.find("NOTICE " + NICK) != -1
                 ):  # see if its a private message
                     if (
-                            text.find(":NickServ!NickServ@services. NOTICE") == -1
+                        text.find(":NickServ!NickServ@services. NOTICE") == -1
                     ):  # check thats its not NickServ
-                        LOGGER.info(
-                            "private message too bot : %s", text)
+                        LOGGER.info("private message too bot : %s", text)
                         from modules import insult
+
                         irc_connection.send(
                             "PRIVMSG {} :{}\r\n".format(
                                 user, insult.random_line()
@@ -65,19 +64,20 @@ def main():
             except Exception as error_point:
                 LOGGER.error("for private message %s", error_point)
 
-            #chance = random.randint(1, 200)
+            # chance = random.randint(1, 200)
             chance1 = random.randint(1, 200)
 
             if "weather" in INSTALLED_MODULES:
                 from modules import weather
+
                 print(user, text)
-                '''if text.find('my place') != -1:
+                """if text.find('my place') != -1:
                     #user = 'mcspud'
                     irc_connection.send(
                         "PRIVMSG {} :{}\r\n".format(
                             CHANNEL, weather.weather(user)
                         ).encode("utf-8")
-                    )'''
+                    )"""
                 if text.find("my place") != -1:
                     words = text.split("##aussies :")[1].strip("\r\n")
                     words = words.split()
@@ -108,10 +108,9 @@ def main():
                 if match is not None:
                     irc_connection.send(
                         "PRIVMSG {} :{}\r\n".format(
-                            CHANNEL,
-                            web_title.gettitle(
-                                match.group("url"),
-                                user)).encode("utf-8"))
+                            CHANNEL, web_title.get_title(match.group("url"))
+                        ).encode("utf-8")
+                    )
 
             if "insult" in INSTALLED_MODULES:
                 from modules import insult
@@ -131,6 +130,7 @@ def main():
                     )
             if "news_feed" in INSTALLED_MODULES:
                 from modules import news_feed
+
                 try:
                     num = text.split()
                     if text.find("!n") != -1:
@@ -143,10 +143,12 @@ def main():
                     irc_connection.send(
                         "PRIVMSG {} :{}\r\n".format(
                             CHANNEL,
-                            ("User the format !n num num the first is the"
-                             " news item and the second is the newsfeed. !n # #"),
-                        ).encode("utf-8"))
-
+                            (
+                                "User the format !n num num the first is the"
+                                " news item and the second is the newsfeed. !n # #"
+                            ),
+                        ).encode("utf-8")
+                    )
 
         except Exception as error_point:
             LOGGER.error("end of if aussie_bot %s", error_point)
