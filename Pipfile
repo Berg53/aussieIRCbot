@@ -8,6 +8,8 @@ requests = ">=2.21,<2.22"
 pytz = ">=2018,<2019"
 lxml = "*"
 feedparser = "*"
+pygoogle-py = "*"
+pygoogle = "*"
 
 [requires]
 python_version = "3.7"

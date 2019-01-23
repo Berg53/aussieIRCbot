@@ -85,7 +85,7 @@ def weather(user):
         return "Berg was too busy sucking dongs to add your location."
 
     resp = requests.get(url).json()
-    weather_data = resp.get("observations", {}).get("data")[-1]
+    weather_data = resp.get("observations", {}).get("data")[0]
     temp_f = _get(weather_data, "air_temp")
 
     output = {k: _get(weather_data, k) for k, v in weather_data.items() if k in FIELDS}
