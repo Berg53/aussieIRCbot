@@ -150,6 +150,10 @@ def main():
                             ),
                         ).encode("utf-8")
                     )
+                if text.find('!rules') != -1 or text.find('!r') != -1:
+                    irc.send("PRIVMSG "+ channel +" :\x02\x034 Rule one:  \x035  No Banninating!\r\n")
+                    irc.send("PRIVMSG "+ channel +" :\x02\x034 Rule two:  \x035  See rule one\r\n")
+                    irc.send("PRIVMSG "+ channel +" :\x02\x034 Rule three: \x035 It's against the rules to enforce em\r\n")
 
         except Exception as error_point:
             LOGGER.error("end of IF for aussie_bot %s", error_point)
