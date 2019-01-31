@@ -118,4 +118,4 @@ dmypy.json
 .idea/
 .vscode/
 aussiebot_log.txt
-src/settings.py
+/src/aussie_bot/settings.py

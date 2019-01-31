@@ -1,4 +1,4 @@
-'''find the weather per user name'''
+"""find the weather per user name"""
 import requests
 
 
@@ -54,35 +54,38 @@ USER_LOOKUP = {
 
 
 def _stiv_bullshit():
-    '''define stiv's weather'''
+    """define stiv's weather"""
     url = "https://api.weather.gov/stations/KIGQ/observations/current"
     return url
 
 
 def _get(weather_data, item):
-    '''get the data from url'''
+    """get the data from url"""
     return weather_data.get(item, "")
 
 
 def _format_output(**values):
-    '''set the format up for the output'''
+    """set the format up for the output"""
     return WEATHER_TEXT.format(**values)
 
 
 def _calculate_temp_in_c(temp):
-    '''return the calculated celcius  to farenheit'''
+    """return the calculated celcius  to farenheit"""
     return str((temp * 9 / 5.0 + 32) if temp else "")
 
 
 def weather(user):
-    '''get the weather per pre defined uer url'''
+    """get the weather per pre defined uer url"""
     user = user.lower()
 
     if user == "stiv":
         return _stiv_bullshit()
-    url = ROOT_URL + USER_LOOKUP.get(user)
-    if not url:
+    location = USER_LOOKUP.get(user)
+
+    if not location:
         return "Berg was too busy sucking dongs to add your location."
+
+    url = ROOT_URL + location
 
     resp = requests.get(url).json()
     weather_data = resp.get("observations", {}).get("data")[0]
@@ -94,3 +97,12 @@ def weather(user):
     output["username"] = user
 
     return _format_output(**output)
+
+
+def handler(connection, event):
+    if event.arguments and event.arguments[0].startswith("my place"):
+        connection.privmsg(event.target, weather(event.source.nick))
+
+
+def get_handlers():
+    return (("pubmsg", handler),)
