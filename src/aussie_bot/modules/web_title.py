@@ -3,15 +3,22 @@
 
 """ Define the title of web pages in irc. """
 
-from requests import get
+import logging
+import re
 
-from logger import LOGGER
-from utils import parse_int
+from requests import get, ConnectionError
+
+from aussie_bot.utils import parse_int
+
+
+_LOGGER = logging.getLogger(__name__)
+URL_REGEX = re.compile(r"(?P<url>https?://[^\s]+)")
+
 
 try:
     from lxml import etree
 except ImportError:
-    LOGGER.error(
+    _LOGGER.error(
         "DAMMMMNNN!!!! You don't have lxml etree support! Enable it! GO GO GO!"
     )
     raise
@@ -26,7 +33,7 @@ def get_title(url):
 
     if 200 < response.status_code >= 300:
         # pylint: disable=bad-continuation
-        LOGGER.warning(
+        _LOGGER.warning(
             "get_title: Error %s occurred when fetching URL %s",
             response.status_code,
             url,
@@ -35,7 +42,7 @@ def get_title(url):
         "Content-Type"
     ].startswith(content_type):
         # pylint: disable=bad-continuation
-        LOGGER.warning(
+        _LOGGER.warning(
             "get_title: Content type of %s is not %s when accessing URL %s",
             response.headers["Content-Type"],
             content_type,
@@ -46,11 +53,11 @@ def get_title(url):
         and parse_int(response.headers["Content-Length"], 0) > 1024 ** 2
     ):
         # pylint: disable=bad-continuation
-        LOGGER.warning(
+        _LOGGER.warning(
             "get_title: Content length is greater than 1MB when accessing URL %s", url
         )
     else:
-        LOGGER.info("get_title for %s: status = %s", url, response.status_code)
+        _LOGGER.info("get_title for %s: status = %s", url, response.status_code)
 
         response.raw.decode_content = True
 
@@ -64,3 +71,17 @@ def get_title(url):
         response.close()
 
     return title
+
+
+def handler(connection, event):
+    if event.arguments:
+        match = URL_REGEX.search(event.arguments[0])
+        if match:
+            try:
+                connection.privmsg(event.target, get_title(match.group("url")))
+            except ConnectionError as e:
+                _LOGGER.warning("Issues connecting to user's URL: %s", e)
+
+
+def get_handlers():
+    return (("pubmsg", handler),)

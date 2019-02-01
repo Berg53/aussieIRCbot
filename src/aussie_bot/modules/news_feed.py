@@ -1,10 +1,14 @@
-'''selecting news items from rss feeds'''
+"""selecting news items from rss feeds"""
+import logging
+
 import feedparser
-from logger import LOGGER
+
+
+_LOGGER = logging.getLogger(__name__)
 
 
 def newsfeed(num, newsoutlet):
-    '''News feed !n # #'''
+    """News feed !n # #"""
 
     try:
         user_look_up = {
@@ -16,8 +20,8 @@ def newsfeed(num, newsoutlet):
         }
         if int(newsoutlet) >= 6 or int(newsoutlet) <= 0:
             return "please number between 1 and 5 for the newsfeeds item !n - # . 1:technologyheadlines 2:internationalheadlines 3:topstories 4:latest-news-national 5: latest-news-world"
-        print (num)
-        if int(num) >= 11 or int(num) <=0:
+        print(num)
+        if int(num) >= 11 or int(num) <= 0:
             return "please number between 1 and 10 for the news item !n # -"
         data_feed = feedparser.parse(user_look_up.get(newsoutlet))
         # using a different keyword format#
@@ -41,5 +45,25 @@ def newsfeed(num, newsoutlet):
                 break
         return "{} :URL = {}".format(news1, news)
     except Exception as error_name:
-        LOGGER.error("News Log errors %s", (error_name))
+        _LOGGER.error("News Log errors %s", error_name)
 
+
+def handler(connection, event):
+    if event.arguments and event.arguments[0].startswith("!n"):
+        args = event.arguments[0].split()
+
+        try:
+            if len(args) > 2:
+                return connection.privmsg(event.target, newsfeed(*args[1:3]))
+        except Exception as e:
+            _LOGGER.warning(e)
+
+        connection.privmsg(
+            event.target,
+            "Use the format !n num num the first is the news item and the second is the"
+            " newsfeed. !n # #",
+        )
+
+
+def get_handlers():
+    return (("pubmsg", handler),)

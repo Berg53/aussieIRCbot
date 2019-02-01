@@ -2,13 +2,19 @@
 
 Bot used in freenode irc channel.
 
-### Running
+### Installing
 
-Ensure pipenv is installed. Run `pipenv shell` from project root.
+Ensure pipenv is installed then run `pipenv install` from project root.
+
+### Configuration
+
+The settings-example.py is an example remove the -example and edit the content to suit.
+
+### Running
 
 To start the bot, run:
 
-  `python src/aussie_bot.py`
+  `pipenv run aussie_bot`
 
 ### Modules
 
@@ -17,6 +23,4 @@ To start the bot, run:
   - Insults: Insults users
   - Web_title: get the url users post and find the title and print back to irc.
   - News_Feed: Select between 5 feeds and up to 10 topics in each feed.
-  
-  ### Settings
-  The settings.py~ is an example remove the ~ and edit the content to suit.
+  - Greeter: responds to o/ and \o.
