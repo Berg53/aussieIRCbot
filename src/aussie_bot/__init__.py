@@ -1,20 +1,21 @@
 """ Run irc bot logic and connection """
-import irc.bot
+from typing import Sequence, Optional
+from irc.bot import SingleServerIRCBot, ExponentialBackoff, ReconnectStrategy
+from irc.client import ServerConnection, Event
 
 from aussie_bot.logger import LOGGER
 
 
-class AussieBot(irc.bot.SingleServerIRCBot):
+class AussieBot(SingleServerIRCBot):
     def __init__(
         self,
-        server,
-        port,
-        channels,
-        nickname,
-        realname=None,
-        password=None,
-        reconnection_interval=irc.bot.missing,
-        recon=irc.bot.ExponentialBackoff(),
+        server: str,
+        port: int,
+        channels: Sequence[str],
+        nickname: str,
+        realname: Optional[str] = None,
+        password: Optional[str] = None,
+        recon: ReconnectStrategy = ExponentialBackoff(),
         **connect_params
     ):
         if not realname:
@@ -24,7 +25,6 @@ class AussieBot(irc.bot.SingleServerIRCBot):
             server_list=[tuple(x for x in (server, port, password) if x)],
             nickname=nickname,
             realname=realname,
-            reconnection_interval=reconnection_interval,
             recon=recon,
             **connect_params
         )
@@ -33,13 +33,18 @@ class AussieBot(irc.bot.SingleServerIRCBot):
         self.port = port
         self.initial_channels = channels
 
-        # TODO: Implement throttling.
-
-    def on_nicknameinuse(self, connection, event):
+    def on_nicknameinuse(self, connection: ServerConnection, event: Event):
         connection.nick("{}_".format(connection.get_nickname()))
 
-    def on_welcome(self, connection, event):
+    def on_welcome(self, connection: ServerConnection, event: Event):
         for channel in self.initial_channels:
-            # TODO: May need to ensure a pause is done before each join command
-            # otherwise the IRC Server may drop connection due to flooding.
             connection.join(channel)
+
+    def on_kick(self, connection: ServerConnection, event: Event):
+        if event.arguments and connection.get_nickname() in event.arguments:
+            connection.join(event.target)
+
+    def on_invite(self, connection: ServerConnection, event: Event):
+        if event.target == connection.get_nickname() and event.arguments:
+            if event.arguments[0] not in self.channels:
+                connection.join(event.arguments[0])
