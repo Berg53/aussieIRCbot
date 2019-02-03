@@ -1,7 +1,7 @@
 import logging
 import time
 from collections import defaultdict, namedtuple
-
+from typing import Union
 
 __all__ = ["Occurrence", "Throttle", "DefaultThrottle", "DontThrottle"]
 
@@ -34,8 +34,13 @@ class Throttle(object):
         _LOGGER.debug("_key({})".format(", ".join(key_parts)))
         return ":".join(key_parts)
 
-    def _is_throttled(self, times):
-        return times > self.threshold
+    def _has_exceeded_threshold(self, times: Union[str, int]):
+        return int(times) > self.threshold
+
+    def _is_within_wait_period(
+            self, now: Union[str, int, float], since: Union[str, int, float]
+    ):
+        return int(now) - int(since) < self.wait
 
     def is_throttled(self, *occurrence_key) -> bool:
         """
@@ -47,7 +52,12 @@ class Throttle(object):
                 (False).
         """
         occurrence_key = self._key(*occurrence_key)
-        return self._is_throttled(self._occurrences[occurrence_key].times)
+        since, times = self._occurrences[occurrence_key]
+        now = time.time()
+        return (
+            self._is_within_wait_period(now, since) and
+            self._has_exceeded_threshold(times)
+        )
 
     def occurrence(self, *occurrence_key) -> bool:
         """
@@ -59,17 +69,16 @@ class Throttle(object):
         """
         occurrence_key = self._key(*occurrence_key)
         occurrence = self._occurrences[occurrence_key]
-        times = occurrence.times
         now = int(time.time())
-
-        if now - occurrence.since < self.wait:
-            times += 1
-        else:
-            times = 0
+        times = (
+            occurrence.times + 1
+            if self._is_within_wait_period(now, occurrence.since)
+            else 0
+        )
 
         self._occurrences[occurrence_key] = Occurrence(now, times)
 
-        return self._is_throttled(times)
+        return self._has_exceeded_threshold(times)
 
     def reset(self):
         """
