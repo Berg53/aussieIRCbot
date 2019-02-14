@@ -70,7 +70,7 @@ def get_title(url):
 
         response.close()
 
-    return title
+    return title.strip()
 
 
 def handler(connection, event):

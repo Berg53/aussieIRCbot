@@ -1,7 +1,6 @@
 """find the weather per user name"""
 import requests
 
-
 ROOT_URL = "http://www.bom.gov.au/fwo/"
 WEATHER_TEXT = (
     "{name} -- Location {username}'s Place --Time {local_date_time} -- The "
@@ -75,15 +74,19 @@ def _calculate_temp_in_c(temp):
 
 
 def weather(user):
-    """get the weather per pre defined uer url"""
+    """get the weather per pre defined user url"""
     user = user.lower()
 
     if user == "stiv":
         return _stiv_bullshit()
+    if user == "specing":
+    #   return xml-weather.get_content()
+        return (get_weather_slov())
+
     location = USER_LOOKUP.get(user)
 
     if not location:
-        return "Berg was too busy sucking dongs to add your location."
+        return "Berg was too busy killing Aliens to add your location."
 
     url = ROOT_URL + location
 
@@ -97,6 +100,44 @@ def weather(user):
     output["username"] = user
 
     return _format_output(**output)
+import requests 
+import xml.etree.ElementTree as ET
+import lxml.objectify as objectify 
+
+dict_data = {} 
+def xml_to_dict(xml_str):
+    """ Convert xml to dict, using lxml v3.4.2 xml processing library, see http://lxml.de/ """
+    def xml_to_dict_recursion(xml_object):
+        dict_object = xml_object.__dict__
+        if not dict_object:  # if empty dict returned
+            return xml_object
+        for key, value in dict_object.items():
+            dict_object[key] = xml_to_dict_recursion(value)
+        return dict_object
+    xml_obj = objectify.fromstring(xml_str)
+    return {xml_obj.tag: xml_to_dict_recursion(xml_obj)}
+
+	# url of rss feed 
+def get_weather_slov():
+    """ getting slovenia weather"""
+    URL = 'http://meteo.arso.gov.si/uploads/probase/www/observ/surface/text/sl/observation_LJUBL-ANA_BEZIGRAD_latest.xml'
+    try:
+        response = requests.get(URL)
+    except:
+        return("Unable to reach weather station. Please try again")
+    dict_data = (xml_to_dict(response.content))
+    data = (dict_data['data']['metData'])
+    units = (data['t_var_unit'])
+    temp = (data['t_degreesC'])
+    humidity = (data['rh'])
+    location = (data['domain_longTitle'])
+    percent = '%'
+    sunrise = (data['sunrise'])
+    sunset = (data['sunset'])
+    winddirect = (data['dd_decodeText'])
+    snow = (data['snow'])
+    pressure = (data['msl'])
+    return('Location = {} Temp = {}{} humidity = {}{} Sunrise = {} sunset = {} wind direction = {} snow = {} Air Pressure = {}hPa'.format(location, temp, units, humidity, percent, sunrise, sunset, winddirect, snow, pressure))
 
 
 def handler(connection, event):
