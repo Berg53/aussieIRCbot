@@ -9,6 +9,8 @@ pytz = ">=2018,<2019"
 lxml = "*"
 feedparser = "*"
 irc = "*"
+pytest = "*"
+geopy = "*"
 
 [requires]
 python_version = "3.7"

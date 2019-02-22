@@ -49,7 +49,35 @@ USER_LOOKUP = {
     "win32user": "IDN60901/IDN60901.94765.json",
     "orlock": "IDV60801/IDV60801.94864.json",
     "pebbles": "IDV60901/IDV60901.94872.json",
+    "bluemaxima": "/IDN60901/IDN60901.94781.json",
 }
+def _parse_response(response):
+    description = response.get('weather')
+    try:
+        d = description[0]
+    except IndexError:
+        main = desc = None
+    else:
+        main, desc = d['main'], d['description']
+
+    lat = response.get('coord', {}).get('lat')
+    lon = response.get('coord', {}).get('lon')
+
+
+
+    return {
+        'main': main,
+        'temp': response.get('main', {}).get('temp', 0),
+        'name': response.get('name'),
+        'country': response.get('sys', {}).get('country'),
+        'description': desc.capitalize(),
+        'wind_speed': response.get('wind', {}).get('speed'),
+        'humidity': response.get('main', {}).get('humidity'),
+        'pressure': response.get('main', {}).get('pressure'),
+        'visibility': response.get('sys', {}).get('visibility', 'clear'),
+        'lat': lat,
+        'lon': lon
+        }
 
 
 def _stiv_bullshit():
@@ -72,6 +100,35 @@ def _calculate_temp_in_c(temp):
     """return the calculated celcius  to farenheit"""
     return str((temp * 9 / 5.0 + 32) if temp else "")
 
+def disavowed_bullshit(url):
+    
+
+    resp = requests.get(url).json()
+    print (_parse_response(resp))
+    lon = (str(resp['coord']['lon']))
+    lat = (str(resp['coord']['lat']))
+    for item in (resp['weather']):
+        sky =(item['description'])
+    temp = (resp['main']['temp'])
+    pressure = (resp['main']['pressure'])
+    humidity = (resp['main']['humidity'])
+    temp_min = (resp['main']['temp_min'])
+    temp_max = (resp['main']['temp_max'])
+    location = (resp['name'])
+    country = (resp['sys']['country'])
+   
+    lon = (str(resp['coord']['lon']))
+    lon = (str(resp['coord']['lon']))
+    lon = (str(resp['coord']['lon']))
+    OUTPUT_STRING = (
+        '{main} and {temp}C in {name}, {country}. {description} with '
+        '{wind_speed}m/s winds. Humidity: {humidity}%, sunrise: {sunrise}, '
+        'sunset: {sunset}, pressure: {pressure}hPa, visibility: {visibility}'
+        ' and lat/lon: {lat}/{lon}.'
+    )   
+    #return OUTPUT_STRING
+    return ("Location: {} lon {}, lat {} Cloud Cover:{} temp: {} Minimum Temp: {} Maximum Temp: {} Humidity: {}%".format(location, lon, lat, sky, temp, temp_min, temp_max, humidity))
+
 
 def weather(user):
     """get the weather per pre defined user url"""
@@ -82,6 +139,10 @@ def weather(user):
     if user == "specing":
     #   return xml-weather.get_content()
         return (get_weather_slov())
+    if user == "disavowed":
+        url = 'http://api.openweathermap.org/data/2.5/weather?q=christchurch,NZ&units=metric&appid=b916c6cc293f6a8895951dd365037bac'
+        return disavowed_bullshit(url)
+        
 
     location = USER_LOOKUP.get(user)
 
@@ -89,6 +150,7 @@ def weather(user):
         return "Berg was too busy killing Aliens to add your location."
 
     url = ROOT_URL + location
+    
 
     resp = requests.get(url).json()
     weather_data = resp.get("observations", {}).get("data")[0]
@@ -135,9 +197,14 @@ def get_weather_slov():
     sunrise = (data['sunrise'])
     sunset = (data['sunset'])
     winddirect = (data['dd_decodeText'])
-    snow = (data['snow'])
-    pressure = (data['msl'])
-    return('Location = {} Temp = {}{} humidity = {}{} Sunrise = {} sunset = {} wind direction = {} snow = {} Air Pressure = {}hPa'.format(location, temp, units, humidity, percent, sunrise, sunset, winddirect, snow, pressure))
+    snow = (data['rr24h_val'])
+    pressure = (data['dd_val'])
+    degrees = (data['dd_var_unit'])
+    wind_speed = (data['ff_val_kmh'])
+    wind_units = "kp/h"
+    last_update = (data["tsUpdated"])
+    precipitation = (data["tsUpdated"])
+    return('Location = {} last update = {} Temp = {}{} humidity = {}{} Sunrise = {} sunset = {} wind direction = {} wind speed = {}{} precipitation = {} Air Pressure = {}hPa'.format(location, last_update, temp, units, humidity, percent, sunrise, sunset, winddirect, wind_speed, wind_units, snow, pressure))
 
 
 def handler(connection, event):
