@@ -2,6 +2,7 @@
 from typing import Sequence, Optional
 from irc.bot import SingleServerIRCBot, ExponentialBackoff, ReconnectStrategy
 from irc.client import ServerConnection, Event
+import sys
 
 from aussie_bot.logger import LOGGER
 
@@ -32,6 +33,7 @@ class AussieBot(SingleServerIRCBot):
         self.server = server
         self.port = port
         self.initial_channels = channels
+        sys.exit(0)
 
     def on_nicknameinuse(self, connection: ServerConnection, event: Event):
         connection.nick("{}_".format(connection.get_nickname()))
