@@ -50,6 +50,7 @@ USER_LOOKUP = {
     "orlock": "IDV60801/IDV60801.94864.json",
     "pebbles": "IDV60901/IDV60901.94872.json",
     "bluemaxima": "/IDN60901/IDN60901.94781.json",
+    "tx": "/IDN60901.94767.json"
 }
 def _parse_response(response):
     description = response.get('weather')
@@ -142,6 +143,9 @@ def weather(user):
     if user == "disavowed":
         url = 'http://api.openweathermap.org/data/2.5/weather?q=christchurch,NZ&units=metric&appid=b916c6cc293f6a8895951dd365037bac'
         return disavowed_bullshit(url)
+    if user == "jamesnz":
+        url = 'http://api.openweathermap.org/data/2.5/weather?q=wellington,NZ&units=metric&appid=b916c6cc293f6a8895951dd365037bac'
+        return disavowed_bullshit(url)
         
 
     location = USER_LOOKUP.get(user)
@@ -198,7 +202,7 @@ def get_weather_slov():
     sunset = (data['sunset'])
     winddirect = (data['dd_decodeText'])
     snow = (data['rr24h_val'])
-    pressure = (data['dd_val'])
+    pressure = (data['msl_mb'])
     degrees = (data['dd_var_unit'])
     wind_speed = (data['ff_val_kmh'])
     wind_units = "kp/h"

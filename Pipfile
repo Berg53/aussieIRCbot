@@ -11,6 +11,8 @@ feedparser = "*"
 irc = "*"
 pytest = "*"
 geopy = "*"
+enentlet = "*"
+eventlet = "*"
 
 [requires]
 python_version = "3.7"

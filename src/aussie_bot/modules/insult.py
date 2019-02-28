@@ -24,7 +24,7 @@ def random_text(random_file=None):
 
 
 def handler(connection, event):
-    if random.randint(1, 100) <= 1:
+    if random.randint(1, 1000) <= 1:
         connection.privmsg(event.target, random_line().strip())
     elif event.arguments and event.arguments[0] == "!q":
         connection.privmsg(event.target, random_text().strip())
