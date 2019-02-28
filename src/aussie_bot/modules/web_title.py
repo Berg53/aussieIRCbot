@@ -26,12 +26,10 @@ except ImportError:
 
 def get_title(url):
     """ Find the title of a url address. """
-    if url.find('000') != -1:
-        return "fuck off tx"
     title = ""
     content_type = "text/html"
 
-    response = get(url, headers={"Accept": content_type}, stream=True)
+    response = get(url, headers={"Accept": content_type}, stream=True, timeout=8)
 
     if 200 <= response.status_code >= 300:
         # pylint: disable=bad-continuation

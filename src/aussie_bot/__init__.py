@@ -5,6 +5,8 @@ from irc.client import ServerConnection, Event
 
 from aussie_bot.logger import LOGGER
 
+ServerConnection.buffer_class.errors = 'ignore'
+
 
 class AussieBot(SingleServerIRCBot):
     def __init__(
