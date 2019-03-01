@@ -94,9 +94,7 @@ def weather(user):
     output = {k: _get(weather_data, k) for k, v in weather_data.items() if k in FIELDS}
     output["degree"] = "\N{DEGREE SIGN}"
     output["temp_f"] = "%.2f" % (temp_f * 9 / 5 + 32)
-    if user == 'mcspud':
-        output["username"] = 'macspud'
-    output["username"] = user
+    output["username"] = user if not user == 'mcspud' else 'macspud'
 
     return _format_output(**output)
 
