@@ -13,6 +13,8 @@ pytest = "*"
 geopy = "*"
 enentlet = "*"
 eventlet = "*"
+validators = "*"
+requests-html = "*"
 
 [requires]
 python_version = "3.7"

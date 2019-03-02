@@ -8,7 +8,7 @@ def handler(connection, event):
         )
         connection.privmsg(
             event.target,
-            "\x02\x034 Rule four: \x035 Free speech is you right in this channel if you truly beleave your right go fuck yourself THE BOT IS ALWAYS RIGHT"
+            "\x02\x034 Ruler four: \x035 Free speech is you right in this channel if you truly beleave your right go fuck yourself THE BOT IS ALWAYS RIGHT"
         )
 
 

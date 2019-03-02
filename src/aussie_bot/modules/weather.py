@@ -50,7 +50,7 @@ USER_LOOKUP = {
     "orlock": "IDV60801/IDV60801.94864.json",
     "pebbles": "IDV60901/IDV60901.94872.json",
     "bluemaxima": "/IDN60901/IDN60901.94781.json",
-    "tx": "/IDN60901.94767.json"
+    "tx": "/IDN60901/IDN60901.94768.json"
 }
 def _parse_response(response):
     description = response.get('weather')
@@ -151,7 +151,7 @@ def weather(user):
     location = USER_LOOKUP.get(user)
 
     if not location:
-        return "Berg was too busy killing Aliens to add your location."
+        return "Berg was too busy killing Aliens to add your location and tx."
 
     url = ROOT_URL + location
     

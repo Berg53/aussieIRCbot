@@ -5,9 +5,9 @@
 
 import logging
 import re
-
+import validators
 from requests import get, ConnectionError
-
+import requests
 from aussie_bot.utils import parse_int
 
 
@@ -24,12 +24,26 @@ except ImportError:
     raise
 
 
+
 def get_title(url):
+    if not validators.url(url):
+        return "Bad url"
+    try:
+        r = requests.get(url, timeout=(5, 5))
+        
+    except requests.exceptions.ConnectionError:
+        return('Hacker URL')
+
+
     """ Find the title of a url address. """
+
+
     title = ""
     content_type = "text/html"
-
-    response = get(url, headers={"Accept": content_type}, stream=True, timeout=8)
+    try:
+        response = get(url, headers={"Accept": content_type}, stream=True, timeout=8)
+    except requests.exceptions.ConnectionError:
+        return('Silly URL')
 
     if 200 <= response.status_code >= 300:
         # pylint: disable=bad-continuation
