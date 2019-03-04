@@ -2,7 +2,7 @@
 # gedit: fileencoding=utf-8 tabstop=4 expandtab shiftwidth=4
 
 """ Define the title of web pages in irc. """
-
+import threading
 import logging
 import re
 import validators
@@ -25,14 +25,9 @@ except ImportError:
 
 
 
-def get_title(url):
-    if not validators.url(url):
-        return "Bad url"
-    try:
-        r = requests.get(url, timeout=(5, 5))
-        
-    except requests.exceptions.ConnectionError:
-        return('Hacker URL')
+def get_title(url, user):
+
+
 
 
     """ Find the title of a url address. """
@@ -43,7 +38,7 @@ def get_title(url):
     try:
         response = get(url, headers={"Accept": content_type}, stream=True, timeout=8)
     except requests.exceptions.ConnectionError:
-        return('Silly URL')
+        return('Faulty User send me to fucked URL')
 
     if 200 <= response.status_code >= 300:
         # pylint: disable=bad-continuation
@@ -92,9 +87,17 @@ def handler(connection, event):
         match = URL_REGEX.search(event.arguments[0])
         if match:
             try:
-                connection.privmsg(event.target, get_title(match.group("url")))
+                evn = threading.Event()
+                t = threading.Thread(target=lambda evn: (connection.privmsg(event.target, get_title(match.group("url"), event.source.nick))), args=(evn,))
+                t.start()
             except ConnectionError as e:
                 _LOGGER.warning("Issues connecting to user's URL: %s", e)
+            t.join(10)
+            if t.is_alive():
+                print( "thread is not done, setting event to kill thread.")
+                evn.set()
+            else:
+                print( "thread has already finished.")
 
 
 def get_handlers():

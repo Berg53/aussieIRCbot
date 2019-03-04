@@ -15,6 +15,7 @@ enentlet = "*"
 eventlet = "*"
 validators = "*"
 requests-html = "*"
+queue = "*"
 
 [requires]
 python_version = "3.7"
