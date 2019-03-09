@@ -1,33 +1,33 @@
 """selecting news items from rss feeds"""
 import random
 import os.path
+import re
 
 
-def random_line(insult_file=None):
-    """to insult users all day"""
-    if insult_file is None:
-        insult_file = os.path.join(
-            os.path.dirname(os.path.dirname(__file__)), "data", "insult.txt"
-        )
-    with open(insult_file) as file_used:
-        return random.choice(list(file_used))
 
+INSULTS_LOCATION = os.getenv('INSULT_FILE', '/home/berg/bin/aussieIRCbot/src/aussie_bot/data/insult.txt')
 
-def random_text(random_file=None):
-    """Random selective quotes from file"""
-    if random_file is None:
-        random_file = os.path.join(
-            os.path.dirname(os.path.dirname(__file__)), "data", "random.txt"
-        )
-    with open(random_file) as file_used:
-        return random.choice(list(file_used))
+def _get_insult():
+    with open(INSULTS_LOCATION) as f:
+        insults = f.readlines()
+    return random.choice(insults)
+
+def run(name):
+    m = '{}, {}'.format(name,  _get_insult().lower())
+
+    return m.strip()
+
 
 
 def handler(connection, event):
-    if random.randint(1, 1000) <= 1:
-        connection.privmsg(event.target, random_line().strip())
-    elif event.arguments and event.arguments[0] == "!q":
-        connection.privmsg(event.target, random_text().strip())
+    try:
+        text = event.arguments[0].split()
+    except:
+        return
+    if len(text) == 2 and event.arguments and text[0] == "!i":
+        connection.privmsg(event.target, str(run(text[1])))
+    if len(text) == 1 and event.arguments and text[0] == "!i": 
+        connection.privmsg(event.target, _get_insult().strip())
 
 
 def get_handlers():

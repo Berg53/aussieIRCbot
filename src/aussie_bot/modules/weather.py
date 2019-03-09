@@ -3,9 +3,9 @@ import requests
 
 ROOT_URL = "http://www.bom.gov.au/fwo/"
 WEATHER_TEXT = (
-    "{name} -- Location {username}'s Place --Time {local_date_time} -- The "
-    "Wind is from the {wind_dir} -- Wind speed {wind_spd_kt} KPH -- Wind "
-    "gusts {gust_kmh} KPH -- Air temps is {air_temp}{degree}C -- {temp_f}"
+    "{name} --It'th Mathta {username}'s Place --Time {local_date_time} -- Vind "
+    "From {wind_dir} -- Wind speed {wind_spd_kt} KPH -- Wind "
+    "gusts {gust_kmh} KPH -- атмосфера is {air_temp}{degree}C -- {temp_f}"
     "{degree}F -- Relative Humidity is {rel_hum}% -- Air Pressure is "
     "{press}kPa -- Rain {rain_trace} -- co-ord's Lon/Lat {lon}/{lat}"
 )

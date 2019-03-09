@@ -1,7 +1,11 @@
 import time
 name_timers = {}
 def handler(connection, event):
-    if event.arguments and (event.arguments[0].startswith("!n") or event.arguments[0].startswith("!t") or event.arguments[0].startswith("my place") or event.arguments[0].startswith("!q")):
+    if event.arguments and (event.arguments[0].startswith("!n") or event.arguments[0].startswith("!t") or event.arguments[0].startswith("my place") or event.arguments[0].startswith("!i") or event.arguments[0].startswith("!save")):
+        #send data to storing script here 
+        #send data to storing script above
+        if event.source.nick.find('bot') != -1:
+            return
         try:
             gap = time.time() - name_timers[(event.source.nick)]
         except KeyError:
