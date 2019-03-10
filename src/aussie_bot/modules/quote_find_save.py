@@ -1,20 +1,30 @@
 import os
 import random
+import subprocess
 count = 0
 def find_quote(username=None, text=None):
+    Reply = {0:"{} The only thing I can find is your arrest warrant..God wills it!!!!",
+         1:"Well it looks like your out of luck {} no quote found.",
+         2:"Try again later {} all our operators are on lunch.",
+         3:"please turn three times signing we love america {}.",
+         }
     with open('/home/berg/bin/aussieIRCbot/src/aussie_bot/data/quote.txt') as quote_file:
         
+        file_path = '/home/berg/bin/aussieIRCbot/src/aussie_bot/logs/freenode/channels'
+        filenames = (os.listdir(file_path))
+        count = len(filenames)-1
+        
+        with open(
+        print(count)
+        print(filenames[count])
+        return (filenames[len(filenames)-1])     
         try:
-
             message = random.choice([x for x in quote_file.readlines() if text in x])
-            return message
-
-
-
-            
+            message = message.split("] ")[1]  
+            return message          
         except Exception as e:
-            print(e)
-            return "{} The only thing I can find is your arrest warrant..God wills it!!!!".format(username)
+            i = random.randint(0, len(Reply) - 1)
+            return Reply[i].format(username)
   
     
         
@@ -70,17 +80,40 @@ def save_quote(username, text):
         return "well thats not in the logs Master {}".format(username)
 
 
+def seen_user(username, text):
+    try:
+        count = 0
+        lines = {}
+        user_id = '<' + text + '>'
+        print(user_id)
+        logs_file = newest()
+        for line in open(logs_file,'r'):
+            if user_id.lower() in line.lower():
+                if user_id.lower().find('igor_bot') != -1:
+                    return"Well Well Well!"
+
+               
+                if "!save" in line or "Meaty_Bot" in line or "!quot" in line or "Added Quote" in line or "|<--" in line or "Igor_Bot" in line or "igor_bot" in line.lower():
+                    count = count-1
+                
+                lines[count] = line
+                count += 1
+                print(lines)
+        return"{} was last seen {}".format(text, lines[count-1])
+    except:
+        return'{} not seen Today!'.format(user_id)
+
+
 
 def handler(connection, event):
     username = event.source.nick
     users = event.source.nick
     print("debugs  ================={} ".format(users))
-    print(event.arguments)
     try:
         command, text = event.arguments[0].split()
-        print(event.target)
     except:
-        return
+        command = event.arguments[0]
+        print(command)
     
     try:
         if event.arguments and command == "!save":
@@ -89,6 +122,19 @@ def handler(connection, event):
         if event.arguments and command == "!quote":
             message = find_quote(username, text)
             connection.privmsg(event.target, message.strip())
+        if event.arguments and command == "!seen":
+            message = seen_user(username, text)
+            connection.privmsg(event.target, message.strip())
+
+        if event.arguments and command == "!logs":
+            print("test tesl")
+            with open(newest()) as foo:
+               lines = len(foo.readlines())
+               message = "there are {} lines in the channel Logs".format(lines)
+            connection.privmsg(event.target, message.strip())
+
+
+
             
 
     except:
