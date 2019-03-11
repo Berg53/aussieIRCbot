@@ -9,15 +9,7 @@ def find_quote(username=None, text=None):
          3:"please turn three times signing we love america {}.",
          }
     with open('/home/berg/bin/aussieIRCbot/src/aussie_bot/data/quote.txt') as quote_file:
-        
-        file_path = '/home/berg/bin/aussieIRCbot/src/aussie_bot/logs/freenode/channels'
-        filenames = (os.listdir(file_path))
-        count = len(filenames)-1
-        
-        with open(
-        print(count)
-        print(filenames[count])
-        return (filenames[len(filenames)-1])     
+    
         try:
             message = random.choice([x for x in quote_file.readlines() if text in x])
             message = message.split("] ")[1]  
@@ -62,8 +54,7 @@ def save_quote(username, text):
                 if username.find('bot') != -1:
                     return"Well Well Well!"
 
-               
-                if "!save" in line or "Meaty_Bot" in line or "!quot" in line or "Added Quote" in line or "|<--" in line or "Igor_Bot" in line:
+                if "!save" in line or "Meaty_Bot" in line or "!quot" in line or "Added Quote" in line or "|<--" in line or "Igor_Bot" in line or "Climate_Bot" in line:
                     count = count-1
         print(lines)
         num = count-1
@@ -89,16 +80,14 @@ def seen_user(username, text):
         logs_file = newest()
         for line in open(logs_file,'r'):
             if user_id.lower() in line.lower():
-                if user_id.lower().find('igor_bot') != -1:
-                    return"Well Well Well!"
-
+                if line.find('Igor_Bot') != -1:
+                    print(line)
+                    count = count - 1
                
-                if "!save" in line or "Meaty_Bot" in line or "!quot" in line or "Added Quote" in line or "|<--" in line or "Igor_Bot" in line or "igor_bot" in line.lower():
-                    count = count-1
+
                 
                 lines[count] = line
                 count += 1
-                print(lines)
         return"{} was last seen {}".format(text, lines[count-1])
     except:
         return'{} not seen Today!'.format(user_id)
