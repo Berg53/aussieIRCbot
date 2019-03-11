@@ -6,6 +6,10 @@ def handler(connection, event):
             event.target,
             "\x02\x034 Rule three: \x035 It's against the rules to enforce em"
         )
+        connection.privmsg(
+            event.target,
+            "\x02\x034 Ruler four: \x035 Free speech is you right in this channel if you truly beleave your right go fuck yourself THE BOT IS ALWAYS RIGHT"
+        )
 
 
 def get_handlers():

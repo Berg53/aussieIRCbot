@@ -14,7 +14,7 @@ The settings-example.py is an example remove the -example and edit the content t
 
 To start the bot, run:
 
-  `pipenv run aussie_bot`
+  `pipenv run aussiebot`
 
 ### Modules
 

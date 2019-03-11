@@ -5,6 +5,8 @@ from irc.client import ServerConnection, Event
 
 from aussie_bot.logger import LOGGER
 
+ServerConnection.buffer_class.errors = 'ignore'
+
 
 class AussieBot(SingleServerIRCBot):
     def __init__(
@@ -47,4 +49,6 @@ class AussieBot(SingleServerIRCBot):
     def on_invite(self, connection: ServerConnection, event: Event):
         if event.target == connection.get_nickname() and event.arguments:
             if event.arguments[0] not in self.channels:
-                connection.join(event.arguments[0])
+                if event.source.nick == "Berg":
+                    connection.join(event.arguments[0])
+

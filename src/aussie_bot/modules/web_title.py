@@ -2,12 +2,12 @@
 # gedit: fileencoding=utf-8 tabstop=4 expandtab shiftwidth=4
 
 """ Define the title of web pages in irc. """
-
+import threading
 import logging
 import re
-
+import validators
 from requests import get, ConnectionError
-
+import requests
 from aussie_bot.utils import parse_int
 
 
@@ -24,14 +24,23 @@ except ImportError:
     raise
 
 
-def get_title(url):
+
+def get_title(url, user):
+
+
+
+
     """ Find the title of a url address. """
+
+
     title = ""
     content_type = "text/html"
+    try:
+        response = get(url, headers={"Accept": content_type}, stream=True, timeout=8)
+    except requests.exceptions.ConnectionError:
+        return('Faulty User send me to fucked URL')
 
-    response = get(url, headers={"Accept": content_type}, stream=True)
-
-    if 200 < response.status_code >= 300:
+    if 200 <= response.status_code >= 300:
         # pylint: disable=bad-continuation
         _LOGGER.warning(
             "get_title: Error %s occurred when fetching URL %s",
@@ -70,7 +79,7 @@ def get_title(url):
 
         response.close()
 
-    return title
+    return title.strip()
 
 
 def handler(connection, event):
@@ -78,9 +87,17 @@ def handler(connection, event):
         match = URL_REGEX.search(event.arguments[0])
         if match:
             try:
-                connection.privmsg(event.target, get_title(match.group("url")))
+                evn = threading.Event()
+                t = threading.Thread(target=lambda evn: (connection.privmsg(event.target, get_title(match.group("url"), event.source.nick))), args=(evn,))
+                t.start()
             except ConnectionError as e:
                 _LOGGER.warning("Issues connecting to user's URL: %s", e)
+            t.join(10)
+            if t.is_alive():
+                print( "thread is not done, setting event to kill thread.")
+                evn.set()
+            else:
+                print( "thread has already finished.")
 
 
 def get_handlers():

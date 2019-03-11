@@ -14,7 +14,7 @@ _LOGGER = logging.getLogger(__name__)
 class Greeter(IrcHandler):
     RESPONSES = (
         (re.compile(r"^\.?o/"), r"\o"),
-        (re.compile(r"^(\\o\.?|hi|hello|bonjour|salut)"), "o/"),
+        (re.compile(r"^(\\o\.?|hi |hello|bonjour|salut|snott)"), "o/"),
     )
 
     def __init__(

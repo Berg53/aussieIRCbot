@@ -114,6 +114,23 @@ venv.bak/
 .mypy_cache/
 .dmypy.json
 dmypy.json
+/data
+/log
+setting*
+irc/
+src/aussie_bot/data/quote.txt
+src/aussie_bot/data/quote.txt.bak
+src/aussie_bot/modules/Pipfile
+src/aussie_bot/modules/Pipfile.lock
+src/aussie_bot/modules/notice_message.py
+src/aussie_bot/modules/nz_weather.py
+src/aussie_bot/modules/xmlweather.py
+src/aussie_bot/settings.py.example
+src/data/
+src/settings.py
+threadingURL.py
+src/aussie_bot/data/insult.txt
+
 
 # Pyre type checker
 .pyre/
