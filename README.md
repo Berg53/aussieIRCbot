@@ -1,4 +1,4 @@
-# aussieIRCbot
+# aussieIRCbot 1/4/19
 
 Bot used in freenode irc channel.
 
