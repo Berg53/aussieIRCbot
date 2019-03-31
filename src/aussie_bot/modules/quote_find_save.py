@@ -3,7 +3,7 @@ import random
 import subprocess
 count = 0
 def find_quote(username=None, text=None):
-    Reply = {0:"{} The only thing I can find is your arrest warrant..God wills it!!!!",
+    Reply = {5:"{} The only thing I can find is your arrest warrant..God wills it!!!!",
          1:"Well it looks like your out of luck {} no quote found.",
          2:"Try again later {} all our operators are on lunch.",
          3:"please turn three times signing we love america {}.",
@@ -15,7 +15,7 @@ def find_quote(username=None, text=None):
             message = message.split("] ")[1]  
             return message          
         except Exception as e:
-            i = random.randint(0, len(Reply) - 1)
+            i = random.randint(1, len(Reply) - 1)
             return Reply[i].format(username)
   
     
@@ -101,8 +101,11 @@ def handler(connection, event):
     try:
         command, text = event.arguments[0].split()
     except:
-        command = event.arguments[0]
-        print(command)
+        try:
+            command = event.arguments[0]
+            print(command)
+        except:
+            pass
     
     try:
         if event.arguments and command == "!save":

@@ -5,7 +5,7 @@ ROOT_URL = "http://www.bom.gov.au/fwo/"
 WEATHER_TEXT = (
     "{name} --It'th Mathta {username}'s Place --Time {local_date_time} -- Vind "
     "From {wind_dir} -- Wind speed {wind_spd_kt} KPH -- Wind "
-    "gusts {gust_kmh} KPH -- атмосфера is {air_temp}{degree}C -- {temp_f}"
+    "gusts {gust_kmh} KPH -- Temp is {air_temp}{degree}C -- {temp_f}"
     "{degree}F -- Relative Humidity is {rel_hum}% -- Air Pressure is "
     "{press}kPa -- Rain {rain_trace} -- co-ord's Lon/Lat {lon}/{lat}"
 )
@@ -111,10 +111,12 @@ def disavowed_bullshit(url):
     for item in (resp['weather']):
         sky =(item['description'])
     temp = (resp['main']['temp'])
+    print(resp)
     pressure = (resp['main']['pressure'])
     humidity = (resp['main']['humidity'])
     temp_min = (resp['main']['temp_min'])
     temp_max = (resp['main']['temp_max'])
+    speed = (resp['wind']['speed'])
     location = (resp['name'])
     country = (resp['sys']['country'])
    
@@ -128,7 +130,7 @@ def disavowed_bullshit(url):
         ' and lat/lon: {lat}/{lon}.'
     )   
     #return OUTPUT_STRING
-    return ("Location: {} lon {}, lat {} Cloud Cover:{} temp: {} Minimum Temp: {} Maximum Temp: {} Humidity: {}%".format(location, lon, lat, sky, temp, temp_min, temp_max, humidity))
+    return ("Location: {} lon {}, lat {} Cloud Cover:{} temp: {} Minimum Temp: {} Maximum Temp: {} Humidity: {}% Wind Speed mtr per sec {}".format(location, lon, lat, sky, temp, temp_min, temp_max, humidity, speed))
 
 
 def weather(user):
@@ -151,7 +153,7 @@ def weather(user):
     location = USER_LOOKUP.get(user)
 
     if not location:
-        return "Berg was too busy killing Aliens to add your location and tx."
+        return "Berg was too busy killing Aliens to add your location and tx told Berg not to help you."
 
     url = ROOT_URL + location
     
@@ -218,3 +220,9 @@ def handler(connection, event):
 
 def get_handlers():
     return (("pubmsg", handler),)
+
+
+
+'''293f6a8895951dd365037bac HTTP/1.1" 200 444
+{'main': 'Clear', 'temp': 19.98, 'name': 'Christchurch', 'country': 'NZ', 'description': 'Clear sky', 'wind_speed': 6.7, 'humidity': 68, 'pressure': 1024, 'visibility': 'clear', 'lat': -43.53, 'lon': 172.64}
+{'coord': {'lon': 172.64, 'lat': -43.53}, 'weather': [{'id': 800, 'main': 'Clear', 'description': 'clear sky', 'icon': '01d'}], 'base': 'stations', 'main': {'temp': 19.98, 'pressure': 1024, 'humidity': 68, 'temp_min': 19.44, 'temp_max': 21}, 'visibility': 10000, 'wind': {'speed': 6.7, 'deg': 70}, 'clouds': {'all': 0}, 'dt': 1553222887, 'sys': {'type': 1, 'id': 7348, 'message': 0.0042, 'country': 'NZ', 'sunrise': 1553193193, 'sunset': 1553236793}, 'id': 2192362, 'name': 'Christchurch', 'cod': 200}'''
