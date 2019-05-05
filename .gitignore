@@ -118,7 +118,6 @@ dmypy.json
 /log
 setting*
 irc/
-src/aussie_bot/data/quote.txt
 src/aussie_bot/data/quote.txt.bak
 src/aussie_bot/modules/Pipfile
 src/aussie_bot/modules/Pipfile.lock
