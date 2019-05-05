@@ -80,7 +80,7 @@ def seen_user(username, text):
         logs_file = newest()
         for line in open(logs_file,'r'):
             if user_id.lower() in line.lower():
-                if line.find('Igor_Bot') != -1:
+                if line.find('Igor_Bot') != -1 or line.find('Climate_bot') != -1 or line.find('seen') != -1 or line.find('!seen') != -1:
                     print(line)
                     count = count - 1
                

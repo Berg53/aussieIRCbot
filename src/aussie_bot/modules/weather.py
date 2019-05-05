@@ -6,7 +6,8 @@ WEATHER_TEXT = (
     "{name} --It'th Mathta {username}'s Place --Time {local_date_time} -- Vind "
     "From {wind_dir} -- Wind speed {wind_spd_kt} KPH -- Wind "
     "gusts {gust_kmh} KPH -- Temp is {air_temp}{degree}C -- {temp_f}"
-    "{degree}F -- Relative Humidity is {rel_hum}% -- Air Pressure is "
+    " {degree}F -- {temp_K}{degree}K"
+    " -- Relative Humidity is {rel_hum}% -- Air Pressure is "
     "{press}kPa -- Rain {rain_trace} -- co-ord's Lon/Lat {lon}/{lat}"
 )
 FIELDS = {
@@ -50,7 +51,8 @@ USER_LOOKUP = {
     "orlock": "IDV60801/IDV60801.94864.json",
     "pebbles": "IDV60901/IDV60901.94872.json",
     "bluemaxima": "/IDN60901/IDN60901.94781.json",
-    "tx": "/IDN60901/IDN60901.94768.json"
+    "tx": "/IDN60901/IDN60901.94768.json",
+    "miqsc": "/IDW60901/IDW60901.94608.json",
 }
 def _parse_response(response):
     description = response.get('weather')
@@ -165,6 +167,7 @@ def weather(user):
     output = {k: _get(weather_data, k) for k, v in weather_data.items() if k in FIELDS}
     output["degree"] = "\N{DEGREE SIGN}"
     output["temp_f"] = "%.2f" % (temp_f * 9 / 5 + 32)
+    output["temp_K"] = temp_f + 273.15
     output["username"] = user if not user == 'mcspud' else 'macspud'
 
     return _format_output(**output)

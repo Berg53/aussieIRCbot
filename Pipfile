@@ -16,6 +16,7 @@ eventlet = "*"
 validators = "*"
 requests-html = "*"
 queue = "*"
+flask = "*"
 
 [requires]
 python_version = "3.7"
