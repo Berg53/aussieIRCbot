@@ -116,7 +116,6 @@ venv.bak/
 dmypy.json
 /data
 /log
-setting*
 irc/
 src/aussie_bot/data/quote.txt.bak
 src/aussie_bot/modules/Pipfile
@@ -126,10 +125,9 @@ src/aussie_bot/modules/nz_weather.py
 src/aussie_bot/modules/xmlweather.py
 src/aussie_bot/settings.py.example
 src/data/
-src/settings.py
 threadingURL.py
 src/aussie_bot/data/insult.txt
-
+.gitignore
 
 # Pyre type checker
 .pyre/
@@ -137,4 +135,3 @@ src/aussie_bot/data/insult.txt
 .idea/
 .vscode/
 aussiebot_log.txt
-/src/aussie_bot/settings.py
