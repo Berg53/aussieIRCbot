@@ -28,13 +28,8 @@ def find_quote(username=None, text=None):
 
 
 def newest():
-    try:
-        path = '/home/berg/bin/aussieIRCbot/src/aussie_bot/logs/freenode/channels'
-        files = os.listdir(path)
-        paths = [os.path.join(path, basename) for basename in files]
-        return (max(paths, key=os.path.getctime))
-    except:
-        return
+
+        return "/home/berg/bin/aussieIRCbot/src/aussie_bot/log/log.txt"
 
 
 

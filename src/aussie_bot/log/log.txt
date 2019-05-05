@@ -1,0 +1,199 @@
+[2019-05-05 17:14:35] <Berg> :i made a new logginbg module that stores inside bot folder
+[2019-05-05 17:17:16] <Berg> :!save made
+[2019-05-05 17:17:17] <Climate_Bot> :well thats not in the logs Master Berg
+[2019-05-05 17:17:30] <Berg> :!save berg
+[2019-05-05 17:17:30] <Climate_Bot> :well thats not in the logs Master Berg
+[2019-05-05 17:20:13] <Berg> :!save berg
+[2019-05-05 17:20:47] <Berg> :try something else
+[2019-05-05 17:21:51] <Berg> :lets try tbhis
+[2019-05-05 17:22:00] <Berg> :!save lets
+[2019-05-05 17:23:23] <Berg> :!quote lets
+[2019-05-05 17:24:37] <Berg> :ok interesting
+[2019-05-05 17:27:32] <Berg> :ok interesting
+[2019-05-05 17:28:23] <Berg> :ok interesting
+[2019-05-05 17:32:28] <Berg> :testing again
+[2019-05-05 17:41:43] <Berg> :https://github.com/jaraco/irc
+[2019-05-05 17:45:04] <Berg> :another try
+[2019-05-05 17:45:28] <Berg> :https://github.com/jaraco/irc
+[2019-05-05 17:51:15] <UKn0Me> :oh cool
+[2019-05-05 17:51:56] <UKn0Me> :test
+[2019-05-05 17:51:57] <Nobby> :2019-05-05 15:51:57.8243571 +0800 AWST m=+5.148302101 UKn0Me => ##aussieBots: test
+[2019-05-05 17:52:12] <UKn0Me> :yeah chill out with the accuracy hey
+[2019-05-05 17:52:12] <Nobby> :2019-05-05 15:52:13.435558 +0800 AWST m=+20.759503001 UKn0Me => ##aussieBots: yeah chill out with the accuracy hey
+[2019-05-05 17:52:59] <UKn0Me> :test
+[2019-05-05 17:53:00] <Nobby> :2019-05-05 15:53:00.9715594 +0800 AWST UKn0Me => ##aussieBots: test
+[2019-05-05 17:56:15] <Berg> :that time is a bit long
+[2019-05-05 17:56:22] <UKn0Me> :yes
+[2019-05-05 17:56:22] <Nobby> :hh:mm:ss UKn0Me => ##aussieBots: yes
+[2019-05-05 17:56:32] <Berg> :is it only doing you?
+[2019-05-05 17:56:33] <Nobby> :hh:mm:ss Berg => ##aussieBots: is it only doing you?
+[2019-05-05 17:56:36] <Berg> :ha
+[2019-05-05 17:56:37] <Nobby> :hh:mm:ss Berg => ##aussieBots: ha
+[2019-05-05 17:56:55] <Berg> :are you using python datetime?
+[2019-05-05 17:56:55] <Nobby> :hh:mm:ss Berg => ##aussieBots: are you using python datetime?
+[2019-05-05 17:57:43] <Berg> :you want my logging string format?
+[2019-05-05 17:58:09] <Berg> :('[{0:%Y-%m-%d %H:%M:%S}]'.format(datetime.datetime.now()) + " <{}> :{}\n".format(event.source.nick,event.arguments[0]))
+[2019-05-05 17:58:45] <Berg> :thats the time the channel and the text
+[2019-05-05 17:59:13] <Berg> :hmm
+[2019-05-05 17:59:26] <Berg> :ook no channel
+[2019-05-05 17:59:32] <Berg> :i dint need it
+[2019-05-05 17:59:55] <Berg> :[2019-05-05 17:56:55] <Nobby> :hh:mm:ss Berg => ##aussieBots: are you using python datetime?
+[2019-05-05 18:00:02] <Berg> :thats what it prints
+[2019-05-05 18:01:32] <Berg> :!save 2019
+[2019-05-05 18:01:54] <Berg> :is cool
+[2019-05-05 18:03:37] <UKn0Me> :noot
+[2019-05-05 18:03:38] <Nobby> :%!s(func() (int, int, int)=0x682410) UKn0Me => ##aussieBots: noot
+[2019-05-05 18:03:41] <UKn0Me> :oh my
+[2019-05-05 18:03:42] <Nobby> :%!s(func() (int, int, int)=0x682410) UKn0Me => ##aussieBots: oh my
+[2019-05-05 18:04:13] <duoi> :gay
+[2019-05-05 18:07:26] <UKn0Me> :no u
+[2019-05-05 18:07:26] <Nobby> :16:7:27 UKn0Me => ##aussieBots: no u
+[2019-05-05 18:08:08] <Berg> :odd
+[2019-05-05 18:08:08] <Nobby> :16:8:9 Berg => ##aussieBots: odd
+[2019-05-05 18:08:15] <Berg> :ok need the date
+[2019-05-05 18:08:16] <Nobby> :16:8:16 Berg => ##aussieBots: ok need the date
+[2019-05-05 18:08:48] <Berg> :thats good for storage
+[2019-05-05 18:08:48] <Nobby> :16:8:49 Berg => ##aussieBots: thats good for storage
+[2019-05-05 18:09:50] <Berg> :i wsill put a , between each part to use for sectiong each line when i split it
+[2019-05-05 18:09:50] <Nobby> :16:9:51 Berg => ##aussieBots: i wsill put a , between each part to use for sectiong each line when i split it
+[2019-05-05 18:10:31] <Berg> :or something no one uses
+[2019-05-05 18:10:32] <Nobby> :16:10:33 Berg => ##aussieBots: or something no one uses
+[2019-05-05 18:10:53] <Berg> :, are used in normal text
+[2019-05-05 18:10:54] <Nobby> :16:10:54 Berg => ##aussieBots: , are used in normal text
+[2019-05-05 18:11:09] <UKn0Me> :noot
+[2019-05-05 18:11:10] <Berg> :heh
+[2019-05-05 18:11:10] <Nobby> :2019-05-05 08:11:10.6402811 +0000 UTC UKn0Me => ##aussieBots: noot
+[2019-05-05 18:11:10] <Nobby> :2019-05-05 08:11:10.883505 +0000 UTC Berg => ##aussieBots: heh
+[2019-05-05 18:11:35] <Berg> :it dont save emotes
+[2019-05-05 18:11:36] <Nobby> :2019-05-05 08:11:36.7738334 +0000 UTC Berg => ##aussieBots: it dont save emotes
+[2019-05-05 18:11:41] <Berg> ::)
+[2019-05-05 18:11:41] <Nobby> :2019-05-05 08:11:42.613342 +0000 UTC Berg => ##aussieBots: :)
+[2019-05-05 18:12:15] <UKn0Me> :nanoseconds are gay
+[2019-05-05 18:12:29] <Berg> :yes
+[2019-05-05 18:12:47] <UKn0Me> :hopefully
+[2019-05-05 18:12:47] <Nobby> :2019-05-05 08:12:48.2059526 +0000 UTC UKn0Me => ##aussieBots: hopefully
+[2019-05-05 18:13:02] <Berg> :take the +00000 etc out too
+[2019-05-05 18:13:03] <Nobby> :2019-05-05 08:13:03.773873 +0000 UTC Berg => ##aussieBots: take the +00000 etc out too
+[2019-05-05 18:13:37] <Berg> :test
+[2019-05-05 18:13:37] <Nobby> :2019-05-05 08:13:38.2342573 +0000 UTC Berg => ##aussieBots: test
+[2019-05-05 18:14:43] <UKn0Me> :t
+[2019-05-05 18:14:44] <Nobby> :2019-05-05 08:14:44 UKn0Me => ##aussieBots: t
+[2019-05-05 18:14:54] <Berg> :thats good
+[2019-05-05 18:14:55] <Nobby> :2019-05-05 08:14:55 Berg => ##aussieBots: thats good
+[2019-05-05 18:14:56] <UKn0Me> :what a shit way to do it golang
+[2019-05-05 18:14:56] <Nobby> :2019-05-05 08:14:57 UKn0Me => ##aussieBots: what a shit way to do it golang
+[2019-05-05 18:15:13] <Berg> :well you started with the wrong lib i think
+[2019-05-05 18:15:13] <Nobby> :2019-05-05 08:15:14 Berg => ##aussieBots: well you started with the wrong lib i think
+[2019-05-05 18:15:35] <UKn0Me> :t
+[2019-05-05 18:15:36] <Nobby> :0000-00-00 00:00:00 UKn0Me => ##aussieBots: t
+[2019-05-05 18:15:36] <Berg> :i just used datetime and bingo its what i want
+[2019-05-05 18:15:37] <Nobby> :0000-00-00 00:00:00 Berg => ##aussieBots: i just used datetime and bingo its what i want
+[2019-05-05 18:16:08] <UKn0Me> :3
+[2019-05-05 18:16:08] <Nobby> :2019-05-05 08:16:09 UTC UKn0Me => ##aussieBots: 3
+[2019-05-05 18:16:41] <Berg> :[2019-05-05 18:15:36] <Berg> :i just used datetime and bingo its what i want
+[2019-05-05 18:16:41] <Nobby> :2019-05-05 08:16:42 UTC Berg => ##aussieBots: [2019-05-05 18:15:36] <Berg> :i just used datetime and bingo its what i want
+[2019-05-05 18:17:09] <Berg> :why the UTC?
+[2019-05-05 18:17:09] <Nobby> :2019-05-05 08:17:10 UTC Berg => ##aussieBots: why the UTC?
+[2019-05-05 18:23:37] <Berg> :my place
+[2019-05-05 18:36:56] <wyoung> :o/
+[2019-05-05 18:39:07] <Berg> :gaaarrr i never saves the quotes i had them on git ignore
+[2019-05-05 18:39:54] <UKn0Me> :test
+[2019-05-05 18:41:00] <UKn0Me> :test
+[2019-05-05 18:41:01] <Nobby> :##aussieBots%!(EXTRA string=%s %s => %s: %s, string=2019-05-05 18:41:01, string=UKn0Me, string=##aussieBots, string=test)
+[2019-05-05 18:41:17] <Berg> :tes
+[2019-05-05 18:41:18] <Nobby> :##aussieBots%!(EXTRA string=%s %s => %s: %s, string=2019-05-05 18:41:18, string=Berg, string=##aussieBots, string=tes)
+[2019-05-05 18:41:20] <Berg> :t
+[2019-05-05 18:41:21] <Nobby> :##aussieBots%!(EXTRA string=%s %s => %s: %s, string=2019-05-05 18:41:22, string=Berg, string=##aussieBots, string=t)
+[2019-05-05 18:41:29] <Berg> :oo
+[2019-05-05 18:41:30] <Nobby> :##aussieBots%!(EXTRA string=%s %s => %s: %s, string=2019-05-05 18:41:30, string=Berg, string=##aussieBots, string=oo)
+[2019-05-05 18:41:52] <Berg> :that looks like overkill
+[2019-05-05 18:41:53] <Nobby> :##aussieBots%!(EXTRA string=%s %s => %s: %s, string=2019-05-05 18:41:53, string=Berg, string=##aussieBots, string=that looks like overkill)
+[2019-05-05 18:42:45] <UKn0Me> :yeah my bad
+[2019-05-05 18:42:45] <Nobby> :2019-05-05 18:42:46 UKn0Me => ##aussieBots: yeah my bad
+[2019-05-05 18:45:11] <UKn0Me> :yeah my bad
+[2019-05-05 18:45:12] <Nobby> :09/55/5005 UKn0Me => ##aussieBots: yeah my bad
+[2019-05-05 18:45:48] <UKn0Me> :1
+[2019-05-05 18:45:48] <Nobby> :05/05/2019 UKn0Me => ##aussieBots: 1
+[2019-05-05 18:51:17] <Berg> :ok whiners we starting a nerw bot that can be on 24/7
+[2019-05-05 18:51:22] <Berg> :!i berg
+[2019-05-05 18:51:30] <Berg> :!save Berg
+[2019-05-05 18:51:42] <Berg> :!save whiner
+[2019-05-05 18:52:07] <Berg> :win32user: pisses on lemon trees
+[2019-05-05 18:52:14] <Berg> :!save trees
+[2019-05-05 18:53:15] <Berg> :ok guys have a go at making quotes
+[2019-05-05 18:53:56] <mwsb> :Berg: I think I have to anger you first, so...
+[2019-05-05 18:54:13] <mwsb> :You're a cooked cunt mate
+[2019-05-05 18:54:17] <mwsb> ::)
+[2019-05-05 18:58:21] <Berg> :!quote dudz 
+[2019-05-05 18:58:27] <Berg> :ha
+[2019-05-05 18:58:41] <Berg> :!quote dudz 
+[2019-05-05 18:58:44] <Berg> :!quote dudz 
+[2019-05-05 18:58:49] <Berg> :!quote win32user 
+[2019-05-05 18:58:53] <Berg> :!quote win32user 
+[2019-05-05 18:58:56] <Berg> :!quote win32user 
+[2019-05-05 18:58:58] <Berg> :!quote win32user 
+[2019-05-05 18:59:01] <Berg> :!quote win32user 
+[2019-05-05 18:59:04] <Berg> :!quote win32user 
+[2019-05-05 19:01:09] <mwsb> :Berg: do you do this Mark Berg's Fishing Addiction?
+[2019-05-05 19:02:13] <Berg> :test
+[2019-05-05 19:03:26] <Berg> :interesting
+[2019-05-05 19:03:33] <Berg> :!quote Disavowed 
+[2019-05-05 19:03:35] <Berg> :!quote Disavowed 
+[2019-05-05 19:03:39] <Berg> :hmm?
+[2019-05-05 19:03:53] <dudz> :!quote best
+[2019-05-05 19:04:18] <Berg> :!quote nullkit[m] 
+[2019-05-05 19:04:23] <dudz> :with quotes like that, someone might mistake win32user as a good person ^
+[2019-05-05 19:04:25] <Berg> :!quote nullkit
+[2019-05-05 19:04:32] <Berg> :!quote nullkit
+[2019-05-05 19:04:34] <Berg> :!quote nullkit
+[2019-05-05 19:04:39] <Berg> :hahah
+[2019-05-05 19:04:41] <Berg> :hahah
+[2019-05-05 19:04:43] <Berg> :!quote nullkit
+[2019-05-05 19:04:51] <Berg> :!save dudz 
+[2019-05-05 19:05:05] <Berg> :!quote dudz 
+[2019-05-05 19:05:07] <Berg> :!quote dudz 
+[2019-05-05 19:05:12] <Berg> :hmm?
+[2019-05-05 19:05:21] <Berg> :need coffee
+[2019-05-05 19:05:22] <dudz> :extra collon ay
+[2019-05-05 19:05:27] <Berg> :you did it
+[2019-05-05 19:05:27] <dudz> :yes, coffee is needed
+[2019-05-05 19:06:04] <dudz> :my wife cooked up a delicious
+[2019-05-05 19:06:09] <dudz> :chowing down atm
+[2019-05-05 19:06:41] <Berg> i wona watch game of throwns
+[2019-05-05 19:06:47] <Berg> 8 4
+[2019-05-05 19:06:54] <dudz> season 8 episode 4?
+[2019-05-05 19:09:52] <dudz> season 1 episode 3 kungfu panda here
+[2019-05-05 19:10:45] <hiya> nullkit[m], yo
+[2019-05-05 19:12:26] <Berg> heh
+[2019-05-05 19:12:33] <Berg> whats happening?
+[2019-05-05 19:12:39] <nullkit> hi
+[2019-05-05 19:12:43] <Berg> hello
+[2019-05-05 19:12:57] <nullkit> whats up berg
+[2019-05-05 19:13:18] <Berg> sky
+[2019-05-05 19:13:26] <Berg> !quote berg
+[2019-05-05 19:13:43] <Berg> !quote berg
+[2019-05-05 19:13:49] <Berg> odd
+[2019-05-05 19:13:56] <Berg> odd
+[2019-05-05 19:13:59] <Berg> !quote berg
+[2019-05-05 19:14:05] <Berg> !quote berg
+[2019-05-05 19:14:09] <Berg> !quote berg
+[2019-05-05 19:14:15] <Berg> !quote berg
+[2019-05-05 19:14:26] <Berg> !quote null
+[2019-05-05 19:14:28] <Berg> !quote null
+[2019-05-05 19:14:35] <Berg> !quote null
+[2019-05-05 19:14:42] <Berg> !quote null
+[2019-05-05 19:14:55] <Berg> odd
+[2019-05-05 19:16:15] <nullkit> why are you saving texts berg ? are u spy ?
+[2019-05-05 19:17:53] <Berg> !qiote DONG
+[2019-05-05 19:18:00] <Berg> !quote DONG
+[2019-05-05 19:18:03] <Berg> !quote DONG
+[2019-05-05 19:18:10] <Berg> !quote DONG
+[2019-05-05 19:18:14] <Berg> !quote DONG
+[2019-05-05 19:18:16] <Berg> !quote DONG
+[2019-05-05 19:18:23] <Berg> its what folks say
+[2019-05-05 19:18:37] <Berg> im not a spy other folks are nullkit
+[2019-05-05 19:19:31] <nullkit> ok live here and die here with saved text, then print them and put into your grave
+[2019-05-05 19:19:57] <nullkit> bbl doing coding
+[2019-05-05 19:20:07] <UKn0Me> Bottas is a sexy beast
+[2019-05-05 19:22:55] <Berg> !save Bot
+[2019-05-05 19:24:50] <Berg> Disavowed: its that female again?
